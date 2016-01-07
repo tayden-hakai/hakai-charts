@@ -2,7 +2,7 @@
   "name": "hakai-charts",
   "version": "1.0.0",
   "description": "Reusable charts that display arbitrary data",
-  "main": "lib/scripts/hakai_charts.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,15 +13,22 @@
   "author": "Taylor Denouden",
   "license": "Unlicense",
   "devDependencies": {
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^3.0.2",
     "eslint-plugin-react": "^3.14.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.1",
     "gulp-eslint": "^1.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
-    "gulp-sourcemaps": "^1.6.0"
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.1",
+    "utils-merge": "^1.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "vinyl-transform": "^1.0.0",
+    "watchify": "^3.6.1"
   }
 }
