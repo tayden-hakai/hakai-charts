@@ -2,7 +2,7 @@
   "name": "hakai-charts",
   "version": "1.0.0",
   "description": "Reusable charts that display arbitrary data",
-  "main": "index.js",
+  "main": "lib/scripts/hakai_charts.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
