@@ -1,0 +1,21 @@
+{
+  "name": "hakai-charts",
+  "version": "1.0.0",
+  "description": "Reusable charts that display arbitrary data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@hakai.github.com:tayden-hakai/hakai-charts.git"
+  },
+  "author": "Taylor Denouden",
+  "license": "Unlicense",
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.0.2",
+    "eslint-plugin-react": "^3.14.0",
+    "gulp": "^3.9.0"
+  }
+}
