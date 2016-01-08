@@ -4,7 +4,7 @@ const gulp = require('gulp');
 
 const browserify = require('browserify');
 const watchify = require('watchify');
-const babelify = require('babelify');
+const babel = require('gulp-babel');
 
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
@@ -35,8 +35,7 @@ function bundle(bundler) {
 
 gulp.task('watchify', function watchBundle() {
   const args = merge(watchify.args, { debug: true });
-  const bundler = watchify(browserify('./index.js', args))
-      .transform(babelify, { /* opts */ });
+  const bundler = watchify(browserify('./build/hakai_charts.js', args));
   bundle(bundler);
 
   bundler.on('update', function updateBundle() {
@@ -46,16 +45,13 @@ gulp.task('watchify', function watchBundle() {
 
 // Without watchify
 gulp.task('browserify', ['lint'], function buildBundle() {
-  const bundler = browserify('./index.js', { debug: true })
-      .transform(babelify, {/* options */ });
-
+  const bundler = browserify('./build/hakai_charts.js', { debug: true });
   return bundle(bundler);
 });
 
 // Without sourcemaps
-gulp.task('browserify-production', ['lint'], function buildProductionBundle() {
-  const bundler = browserify('./index.js', { standalone: 'hakaiCharts' })
-      .transform(babelify, {/* options */ });
+gulp.task('browserify-production', ['babel'], function buildProductionBundle() {
+  const bundler = browserify('./build/hakai_charts.js', { standalone: 'hakaiCharts' });
 
   return bundler.bundle()
     .on('error', console.error)
@@ -68,11 +64,22 @@ gulp.task('browserify-production', ['lint'], function buildProductionBundle() {
     .pipe(gulp.dest('dist'));
 });
 
+// Transpile ES6 into ES5
+gulp.task('babel', ['lint'], function transpileJS() {
+  gulp.src(['./src/**/*.js'])
+    .pipe(sourcemaps.init())
+      .pipe(babel({ presets: ['es2015'] }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('build'));
+});
+
 // JS linting task for code quality check
 gulp.task('lint', function lintJS() {
-  gulp.src(['./app/static/scripts/**/*.js', './app/routes/**/*.js', './*.js'])
+  gulp.src(['./src/js/**/*.js', './*.js'])
     .pipe(eslint())
     .pipe(eslint.formatEach());
 });
 
 gulp.task('default', ['watchify']);
+gulp.task('build', ['browserify-production']);
+// gulp.watch('./src/**/*.js', ['watchify']) ????

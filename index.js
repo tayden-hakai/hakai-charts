@@ -1,6 +1,1 @@
-const scriptDir = './src/js/';
-
-module.exports = {
-  parallelCoordinates: require(scriptDir + 'parallel_coordinates'),
-  scatterplot: require(scriptDir + 'scatterplot'),
-};
+module.exports = require('./build/hakai_charts.js');
