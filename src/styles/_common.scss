@@ -6,6 +6,6 @@ body {
 }
 
 .rot-x .x.axis text {
-  text-anchor: start !important;
+  text-anchor: start;
   transform: rotate(90deg) translate(7px, -13px);
 }

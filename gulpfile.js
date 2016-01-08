@@ -5,19 +5,19 @@ const gulp = require('gulp');
 
 const browserify = require('browserify');
 const watchify = require('watchify');
+const eslint = require('gulp-eslint');
 
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const merge = require('utils-merge');
 
+const sourcemaps = require('gulp-sourcemaps');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 
 const autoprefixer = require('gulp-autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
-
-const eslint = require('gulp-eslint');
+const scsslint = require('gulp-scss-lint');
 
 const pkg = JSON.parse(fs.readFileSync('package.json'));
 
@@ -75,7 +75,7 @@ gulp.task('lintJS', function lintJS() {
 });
 
 // Compile Sass .scss files into vanilla CSS
-gulp.task('sass-prod', function buildSassProd() {
+gulp.task('sass-prod', ['lintScss'], function buildSassProd() {
   return gulp.src('./src/styles/index.scss')
     .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(autoprefixer({ browsers: ['> 1%', 'Last 2 versions'] }))
@@ -84,7 +84,7 @@ gulp.task('sass-prod', function buildSassProd() {
 });
 
 // Compile Sass .scss files into vanilla CSS
-gulp.task('sass-dev', function buildSassDev() {
+gulp.task('sass-dev', ['lintScss'], function buildSassDev() {
   return gulp.src('./src/styles/index.scss')
     .pipe(sourcemaps.init())
       .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
@@ -94,13 +94,18 @@ gulp.task('sass-dev', function buildSassDev() {
     .pipe(gulp.dest('build'));
 });
 
-// // Sass linting task for code quality check
-// gulp.task('lintSass', function lintJS() {
-//   gulp.src(['./src/styles/**/*.scss'])
-//     .pipe(eslint())
-//     .pipe(eslint.formatEach());
-// });
+// Watch and rebuild sass on change
+gulp.task('sass:watch', ['sass-dev'], function rebuildScss() {
+  gulp.watch('./src/styles/**/*.scss', ['sass-dev']);
+});
 
-gulp.task('default', ['watchify']);
+// Sass linting task for code quality check
+gulp.task('lintScss', function lintScss() {
+  gulp.src(['./src/styles/**/*.scss'])
+    .pipe(scsslint());
+});
+
+
+gulp.task('default', ['watchify', 'sass:watch']);
 gulp.task('build-dev', ['browserify', 'sass-dev']);
 gulp.task('build', ['browserify-prod', 'sass-prod']);
