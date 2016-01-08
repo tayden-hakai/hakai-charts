@@ -22,12 +22,18 @@ const eslint = require('gulp-eslint');
 const pkg = JSON.parse(fs.readFileSync('package.json'));
 
 function bundle(bundler) {
-  return bundler.transform('babelify', { presets: ['es2015'] }).bundle()
+  return bundler
+      .transform('babelify', {
+        presets: ['es2015'],
+      })
+      .bundle()
     .on('error', console.error)
     .pipe(source(pkg.main))
-      .pipe(buffer())
-      .pipe(rename('hakai_charts.min.js'))
-      .pipe(uglify())
+    .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(rename('hakai_charts.min.js'))
+        .pipe(uglify())
+      .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build'));
 }
 
