@@ -1,5 +1,4 @@
 /* global d3 */
-/* eslint-env browser */
 
 /**
  * A reusable d3 parallel coordinates generator with statistical coloring
@@ -30,7 +29,7 @@ module.exports = function parallelCoordinates(parent) {
   let _lineData;
 
   /**
-   * Get the x axis position for some dimenstion and initialize dragging
+   * Get the x axis position for some dimension and initialize dragging
    * @param {string} d - The dimension name
    * @return {float} - The distance to the right of the origin
    */

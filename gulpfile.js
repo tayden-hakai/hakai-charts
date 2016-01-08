@@ -1,4 +1,5 @@
 /* eslint-env node */
+
 const fs = require('fs');
 const gulp = require('gulp');
 
@@ -11,7 +12,7 @@ const merge = require('utils-merge');
 
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
-const sourcemaps = require('gulp-sourcemaps');
+// const sourcemaps = require('gulp-sourcemaps');
 
 const eslint = require('gulp-eslint');
 

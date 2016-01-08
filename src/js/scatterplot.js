@@ -1,5 +1,4 @@
 /* global d3 ss */
-/* eslint-env browser */
 
 /**
  * A reusable d3 scatterplot generator
