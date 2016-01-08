@@ -24,16 +24,12 @@ function bundle(bundler) {
     .pipe(source(pkg.main))
     .pipe(buffer())
     .pipe(rename('hakai_charts.js'))
-    .pipe(gulp.dest('build'))
-    .pipe(rename('hakai_charts.min.js'))
-    .pipe(sourcemaps.init({ loadMaps: true }))
-      // capture sourcemaps from transforms
-      .pipe(uglify())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('build/.dev'));
 }
 
-gulp.task('watchify', function watchBundle() {
+gulp.task('watchify', ['lint', 'babel'], function watchBundle() {
+  gulp.watch('./src/**/*.js', ['babel']);
+
   const args = merge(watchify.args, { debug: true });
   const bundler = watchify(browserify('./build/hakai_charts.js', args));
   bundle(bundler);
@@ -57,8 +53,6 @@ gulp.task('browserify-production', ['babel'], function buildProductionBundle() {
     .on('error', console.error)
     .pipe(source(pkg.main))
     .pipe(buffer())
-    .pipe(rename('hakai_charts.js'))
-    .pipe(gulp.dest('dist'))
     .pipe(rename('hakai_charts.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
@@ -81,5 +75,5 @@ gulp.task('lint', function lintJS() {
 });
 
 gulp.task('default', ['watchify']);
+gulp.task('build-dev', ['browserify']);
 gulp.task('build', ['browserify-production']);
-// gulp.watch('./src/**/*.js', ['watchify']) ????
