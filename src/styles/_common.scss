@@ -1,0 +1,11 @@
+@import 'variables';
+
+body {
+  background: $white;
+  font-family: $font-stack;
+}
+
+.rot-x .x.axis text {
+  text-anchor: start !important;
+  transform: rotate(90deg) translate(7px, -13px);
+}

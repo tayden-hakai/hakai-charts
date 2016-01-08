@@ -1,0 +1,43 @@
+@import 'common';
+
+svg {
+  font: 10px sans-serif;
+}
+
+.axis {
+  line {
+    stroke: $gray;
+  }
+
+  path {
+    display: none;
+  }
+}
+
+.frame {
+  fill: none;
+  stroke: $dark-gray;
+}
+
+.label {
+  font: 11px sans-serif;
+  font-weight: bold;
+}
+
+circle {
+  fill-opacity: .7;
+}
+
+.mark {
+  text {
+    display: none;
+  }
+
+  &:hover text {
+    display: block;
+  }
+}
+
+.log-checkbox input {
+  margin-right: 5px;
+}
