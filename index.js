@@ -1,1 +1,4 @@
-module.exports = require('./build/hakai_charts.js');
+module.exports = {
+  parallelCoordinates: require('./src/js/parallel_coordinates'),
+  scatterplot: require('./src/js/scatterplot'),
+};

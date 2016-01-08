@@ -4,7 +4,6 @@ const gulp = require('gulp');
 
 const browserify = require('browserify');
 const watchify = require('watchify');
-const babel = require('gulp-babel');
 
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
@@ -19,19 +18,24 @@ const eslint = require('gulp-eslint');
 const pkg = JSON.parse(fs.readFileSync('package.json'));
 
 function bundle(bundler) {
-  return bundler.bundle()
+  return bundler.transform('babelify', { presets: ['es2015'] }).bundle()
     .on('error', console.error)
     .pipe(source(pkg.main))
     .pipe(buffer())
     .pipe(rename('hakai_charts.js'))
-    .pipe(gulp.dest('build/.dev'));
+    .pipe(gulp.dest('build'));
 }
 
-gulp.task('watchify', ['lint', 'babel'], function watchBundle() {
-  gulp.watch('./src/**/*.js', ['babel']);
+// Build development library
+gulp.task('build-dev', ['lint'], function buildBundle() {
+  const bundler = browserify(pkg.main, { debug: true });
+  return bundle(bundler);
+});
 
+// Build development library and rebuild if files change
+gulp.task('watchify', ['lint'], function watchBundle() {
   const args = merge(watchify.args, { debug: true });
-  const bundler = watchify(browserify('./build/hakai_charts.js', args));
+  const bundler = watchify(browserify(pkg.main, args));
   bundle(bundler);
 
   bundler.on('update', function updateBundle() {
@@ -39,32 +43,17 @@ gulp.task('watchify', ['lint', 'babel'], function watchBundle() {
   });
 });
 
-// Without watchify
-gulp.task('browserify', ['lint'], function buildBundle() {
-  const bundler = browserify('./build/hakai_charts.js', { debug: true });
-  return bundle(bundler);
-});
+// Build production library without sourcemaps
+gulp.task('build-prod', ['lint'], function buildProductionBundle() {
+  const bundler = browserify(pkg.main, { standalone: 'hakaiCharts' });
 
-// Without sourcemaps
-gulp.task('browserify-production', ['babel'], function buildProductionBundle() {
-  const bundler = browserify('./build/hakai_charts.js', { standalone: 'hakaiCharts' });
-
-  return bundler.bundle()
+  return bundler.transform('babelify', { presets: ['es2015'] }).bundle()
     .on('error', console.error)
     .pipe(source(pkg.main))
     .pipe(buffer())
     .pipe(rename('hakai_charts.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
-});
-
-// Transpile ES6 into ES5
-gulp.task('babel', ['lint'], function transpileJS() {
-  gulp.src(['./src/**/*.js'])
-    .pipe(sourcemaps.init())
-      .pipe(babel({ presets: ['es2015'] }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('build'));
 });
 
 // JS linting task for code quality check
@@ -75,5 +64,4 @@ gulp.task('lint', function lintJS() {
 });
 
 gulp.task('default', ['watchify']);
-gulp.task('build-dev', ['browserify']);
-gulp.task('build', ['browserify-production']);
+gulp.task('build', ['build-prod']);
