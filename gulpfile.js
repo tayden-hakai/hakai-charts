@@ -89,7 +89,7 @@ gulp.task('sass-dev', ['lintScss'], function buildSassDev() {
     .pipe(sourcemaps.init())
       .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
       .pipe(autoprefixer({ browsers: ['> 1%', 'Last 2 versions'] }))
-      .pipe(rename({ extname: '.min.css' }))
+      .pipe(rename('hakai_charts.min.css'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('build'));
 });
