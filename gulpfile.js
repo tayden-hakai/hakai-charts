@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 const fs = require('fs');
 const gulp = require('gulp');
 
@@ -19,13 +17,14 @@ const autoprefixer = require('gulp-autoprefixer');
 const sass = require('gulp-sass');
 const scsslint = require('gulp-scss-lint');
 
+const jsdoc = require('gulp-jsdoc-to-markdown');
+const concat = require('gulp-concat');
+
 const pkg = JSON.parse(fs.readFileSync('package.json'));
 
 function bundle(bundler) {
   return bundler
-      .transform('babelify', {
-        presets: ['es2015'],
-      })
+      .transform('babelify', { presets: ['es2015'] })
       .bundle()
     .on('error', console.error)
     .pipe(source(pkg.main))
@@ -105,6 +104,13 @@ gulp.task('lintScss', function lintScss() {
     .pipe(scsslint());
 });
 
+// Generate README documentation from JSDoc comments
+gulp.task('document', function document() {
+  gulp.src(['./src/js/**/*.js'])
+    .pipe(concat('README.md'))
+    .pipe(jsdoc())
+    .pipe(gulp.dest('.'));
+});
 
 gulp.task('default', ['watchify', 'sass:watch']);
 gulp.task('build-dev', ['browserify', 'sass-dev']);
