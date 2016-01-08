@@ -1,9 +1,0 @@
-PROJECT WISHLIST
-
-√ Sass stylesheets            (clean, maintainable, variables!)
-√ Browserify                (Combining modules and maintaining modular code)
-Browser-sync or livereload  (Rebuild scripts on changes automatically eases development)
-√ Babel                     (Use ES6 functionality without worrying about browser support)
-√ ESLint                    (Enforce best practices and JSDoc compatable comments for automatic documentation)
-√ Gulp                      (Automatic build scripts)
-√ sourcemaps                  (Debugging help)
