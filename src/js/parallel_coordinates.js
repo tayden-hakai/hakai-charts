@@ -3,6 +3,7 @@
 /**
  * A reusable d3 parallel coordinates generator with statistical coloring
  * @name parallelCoordinates
+ * @module parallel coordinates
  * @author Taylor Denouden
  * @param {string} parent | {DOM element} parent - A dom element to append the vis to
  * @return {object} parallelCoordinates
@@ -16,7 +17,6 @@ module.exports = function parallelCoordinates(parent) {
       .domain([-2, -0.5, 0.5, 2])
       .range(['#f46d43', '#74add1', '#74add1', '#66bd63'])
       .interpolate(d3.interpolateLab);
-
   let _width;
   let _height;
   let _margin;
@@ -30,6 +30,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * Get the x axis position for some dimension and initialize dragging
+   * @private
    * @param {string} d - The dimension name
    * @return {float} - The distance to the right of the origin
    */
@@ -40,6 +41,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * Generate the line path for a datum.
+   * @private
    * @param {object} d - An object with axis attributes
    * @return {string} - SVG path text
    */
@@ -50,6 +52,7 @@ module.exports = function parallelCoordinates(parent) {
   /**
    * Map a list of objects where each object is an attribute with line values to
    *     a list of objects where each object is a line with its attributes listed
+   * @private
    * @param {list} data - A list of objects
    *      eg {
    *        name: Area,
@@ -78,6 +81,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * color by zScore
+   * @private
    * @param {list} col - A list of values to generate a z-score function from
    * @return {object} - Function that returns z-score relative to values in col
    */
@@ -90,6 +94,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * Change foreground line color
+   * @private
    * @param {string} dimension - The name of the dimension to change
    * @returns {void}
    */
@@ -109,6 +114,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * Provide a consisten transition length
+   * @private
    * @param {object} g - An d3 selection that can be transitioned
    * @return {object} - A d3 transition object
    */
@@ -118,6 +124,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * A brushstart callback control
+   * @private
    * @returns {void}
    */
   function brushstart() {
@@ -126,6 +133,7 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * Handles a brush event, toggling the display of foreground lines.
+   * @private
    * @returns {void}
    */
   function brush() {
@@ -142,7 +150,8 @@ module.exports = function parallelCoordinates(parent) {
 
   /**
    * Generate the chart using private variables on call to chart.render()
-   * @returns {void}
+   * @private
+   * @returns {parallelCoordinates}
    */
   function _chart() {
     _svg = d3.select(parent).append('svg')
@@ -241,10 +250,23 @@ module.exports = function parallelCoordinates(parent) {
     changeColor(_dimensions[0]);
   }
 
+  /**
+   * @name render
+   * @instance
+   * @method
+   * @return {scatterplot}
+   */
   _chart.render = function render() {
     this.call();
     return _chart;
   };
+
+  /**
+   * @name redraw
+   * @instance
+   * @method
+   * @return {scatterplot}
+   */
   _chart.redraw = function redraw() {
     //  Fade out and remove lines
     transition(_background)
@@ -307,21 +329,56 @@ module.exports = function parallelCoordinates(parent) {
     return _chart;
   };
 
+  /**
+   * @name width
+   * @instance
+   * @method
+   * @param {int} val
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.width = function width(val) {
     if (!arguments.length) { return _width; }
     _width = val;
     return _chart;
   };
+
+  /**
+   * @name height
+   * @instance
+   * @method
+   * @param {int} val
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.height = function height(val) {
     if (!arguments.length) { return _height; }
     _height = val;
     return _chart;
   };
+
+  /**
+   * @name margin
+   * @instance
+   * @method
+   * @param {int} val
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.margin = function margin(val) {
     if (!arguments.length) { return _margin; }
     _margin = val;
     return _chart;
   };
+
+  /**
+   * @name width
+   * @instance
+   * @method
+   * @param {int} val
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.data = function data(val) {
     if (!arguments.length) { return _data; }
     _data = val;

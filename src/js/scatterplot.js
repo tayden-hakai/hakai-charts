@@ -3,9 +3,10 @@
 /**
  * A reusable d3 scatterplot generator
  * @name scatterplot
+ * @module scatterplot
  * @author Taylor Denouden
  * @param {string} parent | {DOM element} parent - A dom element to append the vis to
- * @return {object} scatterplot
+ * @return {object} scatterplot chart
  */
 module.exports = function scatterplot(parent) {
   let _width;
@@ -34,6 +35,7 @@ module.exports = function scatterplot(parent) {
 
   /**
    * Return the base ten log of a Number
+   * @private
    * @param {number} d - A number to apply the operation on
    * @return {number} log base 10 of d
    */
@@ -44,6 +46,7 @@ module.exports = function scatterplot(parent) {
   /**
    * Given an x value of un-transformed data (no log transform etc.),
    * get the untransformed y coordinate from the regression line
+   * @private
    * @param {number} x - The untransformed x value in linear space
    * @param {function} regLine - The regression line calculated using
    *    a transformed dataset that accounted for the log scales
@@ -56,6 +59,7 @@ module.exports = function scatterplot(parent) {
 
   /**
    * Calculate all chart statistical values and regresslion linearRegression
+   * @private
    * @param {Object[]} data - The dataset used to calculate the statistics
    * @return {Object} stats - An object with all calculated statistics
    */
@@ -88,7 +92,11 @@ module.exports = function scatterplot(parent) {
       covariance,
     };
   }
-
+  /**
+   * Generate the chart using private variables on call to chart.render()
+   * @private
+   * @returns {scatterplot}
+   */
   function _chart() {
     // Create svg object
     _svg = d3.select(parent).append('svg')
@@ -197,10 +205,25 @@ module.exports = function scatterplot(parent) {
         .attr('dx', -2);
   }
 
+  /**
+   * Draw the chart after parameters have been set.
+   * @name render
+   * @instance
+   * @method
+   * @return {scatterplot}
+   */
   _chart.render = function render() {
     this.call();
     return _chart;
   };
+
+  /**
+   * Redraw and transform the chart after parameter changes.
+   * @name redraw
+   * @instance
+   * @method
+   * @return {scatterplot}
+   */
   _chart.redraw = function redraw() {
     // Create cleaned dataset that doesn't include non numeric or log(0) values
     const cleanData = _data
@@ -289,84 +312,233 @@ module.exports = function scatterplot(parent) {
 
     return _chart;
   };
+
+  /**
+   * Set or get the width attribute of a chart.
+   * @name width
+   * @instance
+   * @param {int} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.width = function width(val) {
     if (!arguments.length) { return _width; }
     _width = val;
     return _chart;
   };
+
+  /**
+   * Set or get the height attribute of a chart.
+   * @name height
+   * @instance
+   * @param {int} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.height = function height(val) {
     if (!arguments.length) { return _height; }
     _height = val;
     return _chart;
   };
+
+  /**
+   * Set or get the margin attribute of a chart.
+   * @name margin
+   * @instance
+   * @param {int} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.margin = function margin(val) {
     if (!arguments.length) { return _margin; }
     _margin = val;
     return _chart;
   };
+
+  /**
+   * Set or get the data that accessor functions refer to.
+   * @name data
+   * @instance
+   * @param {int} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.data = function data(val) {
     if (!arguments.length) { return _data; }
     _data = val;
     return _chart;
   };
+
+  /**
+   * Set or get a function used to access the data shown on the x axis.
+   * @name xAccessor
+   * @instance
+   * @param {Function|Number} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.xAccessor = function xAccessor(val) {
     if (!arguments.length) { return _xAccessor; }
     _xAccessor = val;
     return _chart;
   };
+
+  /**
+   * Set or get a function used to access the data shown on the y axis.
+   * @name yAccessor
+   * @instance
+   * @param {Function|Number} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.yAccessor = function yAccessor(val) {
     if (!arguments.length) { return _yAccessor; }
     _yAccessor = val;
     return _chart;
   };
+
+  /**
+   * Set or get the x axis label.
+   * @name xLabel
+   * @instance
+   * @param {String} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.xLabel = function xLabel(val) {
     if (!arguments.length) { return _xLabel; }
     _xLabel = val;
     return _chart;
   };
+
+  /**
+   * Set or get the y axis label.
+   * @name yLabel
+   * @instance
+   * @param {String} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.yLabel = function yLabel(val) {
     if (!arguments.length) { return _yLabel; }
     _yLabel = val;
     return _chart;
   };
+
+  /**
+   * Set or get whether the x axis scale should be log transformed.
+   * @name xLog
+   * @instance
+   * @param {Boolean} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.xLog = function xLog(val) {
     if (!arguments.length) { return _xLog; }
     _xLog = val;
     _x = _xLog ? d3.scale.log() : d3.scale.linear();
     return _chart;
   };
+
+  /**
+   * Set or get whether the y axis scale should be log transformed.
+   * @name yLog
+   * @instance
+   * @param {Boolean} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.yLog = function yLog(val) {
     if (!arguments.length) { return _yLog; }
     _yLog = val;
     _y = _yLog ? d3.scale.log() : d3.scale.linear();
     return _chart;
   };
+
+  /**
+   * Set or get a scale function that accepts a data value and returns a color.
+   * @name color
+   * @instance
+   * @param {Function} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.color = function color(val) {
     if (!arguments.length) { return _color; }
     _color = val;
     return _chart;
   };
+
+  /**
+   * Set or get a function used to access the data and pass the value to the color function.
+   * @name colorAccessor
+   * @instance
+   * @param {Function|Number} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.colorAccessor = function colorAccessor(val) {
     if (!arguments.length) { return _colorAccessor; }
     _colorAccessor = val;
     return _chart;
   };
+
+  /**
+   * Set or get a function used to determine which points shown are the same datum.
+   * Allows for mark translation on redraw.
+   * @name keyAccessor
+   * @instance
+   * @param {Function} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.keyAccessor = function keyAccessor(val) {
     if (!arguments.length) { return _keyAccessor; }
     _keyAccessor = val;
     return _chart;
   };
+
+  /**
+   * Set or get a radius value or a scale function that accepts a
+   * data value and returns a radius size.
+   * @name radius
+   * @instance
+   * @param {Function|Number} [val]
+   * @return {int}
+   * @return {scatterplot}
+   */
   _chart.radius = function radius(val) {
     if (!arguments.length) { return _radius; }
     _radius = val;
     return _chart;
   };
+
+  /**
+   * Return the R squared value determined by the linear regression function.
+   * @name rSquare
+   * @instance
+   * @return {float}
+   */
   _chart.rSquared = function rSquared() {
     return _rSquared;
   };
+
+  /**
+   * Return the correlation value determined by the linear regression function.
+   * @name correlation
+   * @instance
+   * @return {float}
+   */
   _chart.correlation = function correlation() {
     return _correlation;
   };
+
+  /**
+   * Return the covariance value determined by the linear regression function.
+   * @name covariance
+   * @instance
+   * @return {float}
+   */
   _chart.covariance = function covariance() {
     return _covariance;
   };
