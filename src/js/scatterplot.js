@@ -9,6 +9,7 @@ const ss = require('simple-statistics');
  * @module scatterplot
  * @memberof hakaiCharts
  * @author Taylor Denouden
+ * @example {@link ./examples/scatterplot_example.html|example}
  * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} scatterplot chart
  */
