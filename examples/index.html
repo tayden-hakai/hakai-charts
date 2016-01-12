@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../build/hakai_charts.min.css" charset="utf-8">
+    <title>hakaiCharts scatterplot example</title>
+  </head>
+  <body>
+    <div id="scatterplot"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+    <script src="../dist/hakai_charts.min.js"></script>
+    <script>
+      var dataset = [
+        {"id": 1, "fav_number": 30, "gender": "Female", "full_name": "Paula Morales", "lucky_number": 3 },
+        { "id": 2, "fav_number": 30, "gender": "Female", "full_name": "Karen Hunt", "lucky_number": 4 },
+        { "id": 3, "fav_number": 31, "gender": "Male", "full_name": "Randy Burns", "lucky_number": 7 },
+        { "id": 4, "fav_number": 29, "gender": "Female", "full_name": "Joan Burton", "lucky_number": 11 },
+        { "id": 5, "fav_number": 30, "gender": "Male", "full_name": "William Miller", "lucky_number": 9 },
+        { "id": 6, "fav_number": 30, "gender": "Female", "full_name": "Louise Griffin", "lucky_number": 12 },
+        { "id": 7, "fav_number": 30, "gender": "Female", "full_name": "Janet Hamilton", "lucky_number": 13 },
+        { "id": 8, "fav_number": 30, "gender": "Male", "full_name": "Lawrence Griffin", "lucky_number": 2 },
+        { "id": 9, "fav_number": 30, "gender": "Male", "full_name": "Jerry Chapman", "lucky_number": 3 },
+        { "id": 10, "fav_number": 30, "gender": "Male", "full_name": "Phillip Kelley", "lucky_number": 11 }
+      ]
+
+      var chart = hakaiCharts.scatterplot("#scatterplot");
+
+      chart
+        .width(500)
+        .height(500)
+        .margin({top: 10, left: 25, right: 10, bottom: 10})
+        .data(dataset)
+        .xAccessor(function(d) { return d.full_name.length; })
+        .xLabel("Length of name")
+        .yAccessor(function(d) { return d.fav_number; })
+        .yLabel("Favourite number")
+        .color(d3.scale.ordinal()
+          .domain(["Male", "Female"])
+          .range(["blue", "pink"])
+        )
+        .colorAccessor(function(d) { return d.gender; })
+        .keyAccessor(function(d) { return d.id; })
+        .radius(8);
+
+      chart.render();
+
+      setTimeout(function() {
+        chart
+          .yAccessor(function(d) { return d.lucky_number; })
+          .yLabel("Lucky number")
+          .yLog(true)
+          .redraw();
+      }, 5000)
+
+    </script>
+  </body>
+</html>
