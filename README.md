@@ -18,16 +18,13 @@
 A reusable d3 scatterplot generator
 
 **Returns**: <code>object</code> - scatterplot chart  
+**See**: [example](./examples/scatterplot_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | parent | <code>String</code> &#124; <code>DOM_node</code> | A DOM element to append the chart to |
 
-**Example**  
-```js
-[example](./examples/scatterplot_example.html)
-```
 
 * [scatterplot](#hakaiCharts.module_scatterplot) ⇒ <code>object</code>
     * [.width](#hakaiCharts.module_scatterplot+width) ⇒ <code>int</code> &#124; <code>scatterplot</code>
