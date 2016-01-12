@@ -3,10 +3,11 @@
 /**
  * A reusable d3 parallel coordinates generator with statistical coloring
  * @name parallelCoordinates
- * @module parallel coordinates
+ * @module parallelCoordinates
+ * @memberof hakaiCharts
  * @author Taylor Denouden
- * @param {string} parent | {DOM element} parent - A dom element to append the vis to
- * @return {object} parallelCoordinates
+ * @param {String|DOM_node} parent - A dom element to append the chart to
+ * @return {parallelCoordinatesChart}
  */
 module.exports = function parallelCoordinates(parent) {
   const _y = {};
@@ -254,7 +255,7 @@ module.exports = function parallelCoordinates(parent) {
    * @name render
    * @instance
    * @method
-   * @return {scatterplot}
+   * @return {parallelCoordinatesChart}
    */
   _chart.render = function render() {
     this.call();
@@ -265,7 +266,7 @@ module.exports = function parallelCoordinates(parent) {
    * @name redraw
    * @instance
    * @method
-   * @return {scatterplot}
+   * @return {parallelCoordinatesChart}
    */
   _chart.redraw = function redraw() {
     //  Fade out and remove lines
@@ -332,8 +333,7 @@ module.exports = function parallelCoordinates(parent) {
   /**
    * @name width
    * @instance
-   * @method
-   * @param {int} val
+   * @param {int} [val] Value to set width to
    * @return {int}
    * @return {scatterplot}
    */
@@ -346,7 +346,6 @@ module.exports = function parallelCoordinates(parent) {
   /**
    * @name height
    * @instance
-   * @method
    * @param {int} val
    * @return {int}
    * @return {scatterplot}
@@ -360,7 +359,6 @@ module.exports = function parallelCoordinates(parent) {
   /**
    * @name margin
    * @instance
-   * @method
    * @param {int} val
    * @return {int}
    * @return {scatterplot}
@@ -372,9 +370,8 @@ module.exports = function parallelCoordinates(parent) {
   };
 
   /**
-   * @name width
+   * @name data
    * @instance
-   * @method
    * @param {int} val
    * @return {int}
    * @return {scatterplot}

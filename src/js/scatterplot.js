@@ -1,11 +1,15 @@
-/* global d3 ss */
+/* global d3 */
+
+// Include and bundle simple statistics
+const ss = require('simple-statistics');
 
 /**
  * A reusable d3 scatterplot generator
  * @name scatterplot
  * @module scatterplot
+ * @memberof hakaiCharts
  * @author Taylor Denouden
- * @param {string} parent | {DOM element} parent - A dom element to append the vis to
+ * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} scatterplot chart
  */
 module.exports = function scatterplot(parent) {
@@ -92,6 +96,7 @@ module.exports = function scatterplot(parent) {
       covariance,
     };
   }
+
   /**
    * Generate the chart using private variables on call to chart.render()
    * @private
@@ -317,7 +322,7 @@ module.exports = function scatterplot(parent) {
    * Set or get the width attribute of a chart.
    * @name width
    * @instance
-   * @param {int} [val]
+   * @param {int} [val] The chart width
    * @return {int}
    * @return {scatterplot}
    */
@@ -331,7 +336,7 @@ module.exports = function scatterplot(parent) {
    * Set or get the height attribute of a chart.
    * @name height
    * @instance
-   * @param {int} [val]
+   * @param {int} [val] The chart height
    * @return {int}
    * @return {scatterplot}
    */
@@ -345,7 +350,7 @@ module.exports = function scatterplot(parent) {
    * Set or get the margin attribute of a chart.
    * @name margin
    * @instance
-   * @param {int} [val]
+   * @param {int} [val] The chart margins in format {top: 5, left: 5, right: 10, bottom: 15}
    * @return {int}
    * @return {scatterplot}
    */
@@ -359,7 +364,7 @@ module.exports = function scatterplot(parent) {
    * Set or get the data that accessor functions refer to.
    * @name data
    * @instance
-   * @param {int} [val]
+   * @param {int} [val] The data being accessed by all accessor functions
    * @return {int}
    * @return {scatterplot}
    */
@@ -373,7 +378,7 @@ module.exports = function scatterplot(parent) {
    * Set or get a function used to access the data shown on the x axis.
    * @name xAccessor
    * @instance
-   * @param {Function|Number} [val]
+   * @param {Function|Number} [val] The x axis data accessor function
    * @return {int}
    * @return {scatterplot}
    */
@@ -387,7 +392,7 @@ module.exports = function scatterplot(parent) {
    * Set or get a function used to access the data shown on the y axis.
    * @name yAccessor
    * @instance
-   * @param {Function|Number} [val]
+   * @param {Function|Number} [val] The y axis data accessor function
    * @return {int}
    * @return {scatterplot}
    */
@@ -401,7 +406,7 @@ module.exports = function scatterplot(parent) {
    * Set or get the x axis label.
    * @name xLabel
    * @instance
-   * @param {String} [val]
+   * @param {String} [val] The x label
    * @return {int}
    * @return {scatterplot}
    */
@@ -415,7 +420,7 @@ module.exports = function scatterplot(parent) {
    * Set or get the y axis label.
    * @name yLabel
    * @instance
-   * @param {String} [val]
+   * @param {String} [val] The y label
    * @return {int}
    * @return {scatterplot}
    */
@@ -429,7 +434,7 @@ module.exports = function scatterplot(parent) {
    * Set or get whether the x axis scale should be log transformed.
    * @name xLog
    * @instance
-   * @param {Boolean} [val]
+   * @param {Boolean} [val=false] Flag to transform x axis
    * @return {int}
    * @return {scatterplot}
    */
@@ -444,7 +449,7 @@ module.exports = function scatterplot(parent) {
    * Set or get whether the y axis scale should be log transformed.
    * @name yLog
    * @instance
-   * @param {Boolean} [val]
+   * @param {Boolean} [val=false] Flag to transform y axis
    * @return {int}
    * @return {scatterplot}
    */
@@ -459,7 +464,7 @@ module.exports = function scatterplot(parent) {
    * Set or get a scale function that accepts a data value and returns a color.
    * @name color
    * @instance
-   * @param {Function} [val]
+   * @param {Function} [val=d3.scale.category10()] The color scale function
    * @return {int}
    * @return {scatterplot}
    */
@@ -473,7 +478,7 @@ module.exports = function scatterplot(parent) {
    * Set or get a function used to access the data and pass the value to the color function.
    * @name colorAccessor
    * @instance
-   * @param {Function|Number} [val]
+   * @param {Function} [val=function(){ return 0; }] The colorAccessor function
    * @return {int}
    * @return {scatterplot}
    */
@@ -488,7 +493,7 @@ module.exports = function scatterplot(parent) {
    * Allows for mark translation on redraw.
    * @name keyAccessor
    * @instance
-   * @param {Function} [val]
+   * @param {Function} [val=function(d){ return d.key; }] The keyAccessor function
    * @return {int}
    * @return {scatterplot}
    */
@@ -503,7 +508,7 @@ module.exports = function scatterplot(parent) {
    * data value and returns a radius size.
    * @name radius
    * @instance
-   * @param {Function|Number} [val]
+   * @param {Number} [val=5] The radius in px
    * @return {int}
    * @return {scatterplot}
    */
@@ -515,7 +520,7 @@ module.exports = function scatterplot(parent) {
 
   /**
    * Return the R squared value determined by the linear regression function.
-   * @name rSquare
+   * @name rSquared
    * @instance
    * @return {float}
    */
