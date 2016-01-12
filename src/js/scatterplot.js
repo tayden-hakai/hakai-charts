@@ -151,8 +151,8 @@ module.exports = function scatterplot(parent) {
         .attr('class', 'y label')
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'end')
-        .attr('x', -5)
-        .attr('y', 10)
+        .attr('x', -7)
+        .attr('y', 15)
         .text(_yLabel);
 
     // Add frame around chart
