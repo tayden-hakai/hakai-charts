@@ -18,7 +18,11 @@
 A reusable d3 scatterplot generator
 
 **Returns**: <code>object</code> - scatterplot chart  
-**See**: [example](./examples/scatterplot_example.html)  
+**See**
+
+- [example](./examples/scatterplot_example.html)
+- [example](http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/scatterplot_example.html)
+
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
