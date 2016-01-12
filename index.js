@@ -1,9 +1,6 @@
-/**
- * The global namespace for all charts
- * @namespace hakaiCharts
- */
+/** @namespace */
 const hakaiCharts = {
-  parallelCoordinates: require('./src/js/parallel_coordinates'),
+  // parallelCoordinates: require('./src/js/parallel_coordinates'),
   scatterplot: require('./src/js/scatterplot'),
 };
 

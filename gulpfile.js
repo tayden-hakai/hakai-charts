@@ -106,7 +106,7 @@ gulp.task('lintScss', function lintScss() {
 
 // Generate README documentation from JSDoc comments
 gulp.task('document', function document() {
-  gulp.src([pkg.main, './src/js/**/*.js'])
+  gulp.src([pkg.main, './src/js/**/*.js', '!./src/js/**/_*.js'])
     .pipe(concat('README.md'))
     .pipe(jsdoc())
     .pipe(gulp.dest('.'));

@@ -1,9 +1,6 @@
 ## Modules
 
 <dl>
-<dt><a href="#hakaiCharts.module_parallelCoordinates">parallelCoordinates</a> ⇒ <code>parallelCoordinatesChart</code></dt>
-<dd><p>A reusable d3 parallel coordinates generator with statistical coloring</p>
-</dd>
 <dt><a href="#hakaiCharts.module_scatterplot">scatterplot</a> ⇒ <code>object</code></dt>
 <dd><p>A reusable d3 scatterplot generator</p>
 </dd>
@@ -13,67 +10,9 @@
 
 <dl>
 <dt><a href="#hakaiCharts">hakaiCharts</a> : <code>object</code></dt>
-<dd><p>The global namespace for all charts</p>
-</dd>
+<dd></dd>
 </dl>
 
-<a name="hakaiCharts.module_parallelCoordinates"></a>
-## parallelCoordinates ⇒ <code>parallelCoordinatesChart</code>
-A reusable d3 parallel coordinates generator with statistical coloring
-
-**Author:** Taylor Denouden  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parent | <code>String</code> &#124; <code>DOM_node</code> | A dom element to append the chart to |
-
-
-* [parallelCoordinates](#hakaiCharts.module_parallelCoordinates) ⇒ <code>parallelCoordinatesChart</code>
-    * [.width](#hakaiCharts.module_parallelCoordinates+width) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.height](#hakaiCharts.module_parallelCoordinates+height) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.margin](#hakaiCharts.module_parallelCoordinates+margin) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.data](#hakaiCharts.module_parallelCoordinates+data) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.render()](#hakaiCharts.module_parallelCoordinates+render) ⇒ <code>parallelCoordinatesChart</code>
-    * [.redraw()](#hakaiCharts.module_parallelCoordinates+redraw) ⇒ <code>parallelCoordinatesChart</code>
-
-<a name="hakaiCharts.module_parallelCoordinates+width"></a>
-### parallelCoordinates.width ⇒ <code>int</code> &#124; <code>scatterplot</code>
-**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [val] | <code>int</code> | Value to set width to |
-
-<a name="hakaiCharts.module_parallelCoordinates+height"></a>
-### parallelCoordinates.height ⇒ <code>int</code> &#124; <code>scatterplot</code>
-**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
-
-| Param | Type |
-| --- | --- |
-| val | <code>int</code> | 
-
-<a name="hakaiCharts.module_parallelCoordinates+margin"></a>
-### parallelCoordinates.margin ⇒ <code>int</code> &#124; <code>scatterplot</code>
-**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
-
-| Param | Type |
-| --- | --- |
-| val | <code>int</code> | 
-
-<a name="hakaiCharts.module_parallelCoordinates+data"></a>
-### parallelCoordinates.data ⇒ <code>int</code> &#124; <code>scatterplot</code>
-**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
-
-| Param | Type |
-| --- | --- |
-| val | <code>int</code> | 
-
-<a name="hakaiCharts.module_parallelCoordinates+render"></a>
-### parallelCoordinates.render() ⇒ <code>parallelCoordinatesChart</code>
-**Kind**: instance method of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
-<a name="hakaiCharts.module_parallelCoordinates+redraw"></a>
-### parallelCoordinates.redraw() ⇒ <code>parallelCoordinatesChart</code>
-**Kind**: instance method of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
 <a name="hakaiCharts.module_scatterplot"></a>
 ## scatterplot ⇒ <code>object</code>
 A reusable d3 scatterplot generator
@@ -276,6 +215,4 @@ Redraw and transform the chart after parameter changes.
 **Kind**: instance method of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts"></a>
 ## hakaiCharts : <code>object</code>
-The global namespace for all charts
-
 **Kind**: global namespace  
