@@ -1,5 +1,6 @@
 /* global d3 */
-
+// Load stylesheet
+require('../styles/scatterplot.scss');
 // Include and bundle simple statistics
 const ss = require('simple-statistics');
 
