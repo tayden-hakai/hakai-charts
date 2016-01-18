@@ -34,6 +34,8 @@ gulp.task('webpack-dev-server', function webpackServer() {
     gutil.log('[webpack-dev-server]', stats.toString());
   });
 
+  compiler.call(undefined);
+
   // Start a webpack-dev-server
   new WebpackDevServer(
     compiler,
