@@ -1,17 +1,17 @@
 ## Modules
 
 <dl>
+<dt><a href="#module_hakaiCharts">hakaiCharts</a></dt>
+<dd><p>Main module used for namespacing all charts under hakaiCharts</p>
+</dd>
 <dt><a href="#hakaiCharts.module_scatterplot">scatterplot</a> ⇒ <code>object</code></dt>
 <dd><p>A reusable d3 scatterplot generator</p>
 </dd>
 </dl>
 
-## Objects
-
-<dl>
-<dt><a href="#hakaiCharts">hakaiCharts</a> : <code>object</code></dt>
-<dd></dd>
-</dl>
+<a name="module_hakaiCharts"></a>
+## hakaiCharts
+Main module used for namespacing all charts under hakaiCharts
 
 <a name="hakaiCharts.module_scatterplot"></a>
 ## scatterplot ⇒ <code>object</code>
@@ -31,29 +31,43 @@ A reusable d3 scatterplot generator
 
 
 * [scatterplot](#hakaiCharts.module_scatterplot) ⇒ <code>object</code>
-    * [.width](#hakaiCharts.module_scatterplot+width) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.height](#hakaiCharts.module_scatterplot+height) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.margin](#hakaiCharts.module_scatterplot+margin) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.data](#hakaiCharts.module_scatterplot+data) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.xAccessor](#hakaiCharts.module_scatterplot+xAccessor) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.yAccessor](#hakaiCharts.module_scatterplot+yAccessor) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.xLabel](#hakaiCharts.module_scatterplot+xLabel) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.yLabel](#hakaiCharts.module_scatterplot+yLabel) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.xLog](#hakaiCharts.module_scatterplot+xLog) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.yLog](#hakaiCharts.module_scatterplot+yLog) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.color](#hakaiCharts.module_scatterplot+color) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.colorAccessor](#hakaiCharts.module_scatterplot+colorAccessor) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.keyAccessor](#hakaiCharts.module_scatterplot+keyAccessor) ⇒ <code>int</code> &#124; <code>scatterplot</code>
-    * [.radius](#hakaiCharts.module_scatterplot+radius) ⇒ <code>int</code> &#124; <code>scatterplot</code>
+    * [.width](#hakaiCharts.module_scatterplot+width) ⇒ <code>chart</code>
+    * [.width](#hakaiCharts.module_scatterplot+width) ⇒ <code>int</code>
+    * [.height](#hakaiCharts.module_scatterplot+height) ⇒ <code>chart</code>
+    * [.height](#hakaiCharts.module_scatterplot+height) ⇒ <code>int</code>
+    * [.margin](#hakaiCharts.module_scatterplot+margin) ⇒ <code>chart</code>
+    * [.margin](#hakaiCharts.module_scatterplot+margin) ⇒ <code>Object</code>
+    * [.data](#hakaiCharts.module_scatterplot+data) ⇒ <code>chart</code>
+    * [.data](#hakaiCharts.module_scatterplot+data) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.xAccessor](#hakaiCharts.module_scatterplot+xAccessor) ⇒ <code>chart</code>
+    * [.xAccessor](#hakaiCharts.module_scatterplot+xAccessor) ⇒ <code>function</code> &#124; <code>Number</code>
+    * [.yAccessor](#hakaiCharts.module_scatterplot+yAccessor) ⇒ <code>chart</code>
+    * [.yAccessor](#hakaiCharts.module_scatterplot+yAccessor) ⇒ <code>function</code> &#124; <code>Number</code>
+    * [.xLabel](#hakaiCharts.module_scatterplot+xLabel) ⇒ <code>chart</code>
+    * [.xLabel](#hakaiCharts.module_scatterplot+xLabel) ⇒ <code>String</code>
+    * [.yLabel](#hakaiCharts.module_scatterplot+yLabel) ⇒ <code>chart</code>
+    * [.yLabel](#hakaiCharts.module_scatterplot+yLabel) ⇒ <code>String</code>
+    * [.xLog](#hakaiCharts.module_scatterplot+xLog) ⇒ <code>chart</code>
+    * [.xLog](#hakaiCharts.module_scatterplot+xLog) ⇒ <code>Boolean</code>
+    * [.yLog](#hakaiCharts.module_scatterplot+yLog) ⇒ <code>chart</code>
+    * [.yLog](#hakaiCharts.module_scatterplot+yLog) ⇒ <code>Boolean</code>
+    * [.color](#hakaiCharts.module_scatterplot+color) ⇒ <code>chart</code>
+    * [.color](#hakaiCharts.module_scatterplot+color) ⇒ <code>function</code>
+    * [.colorAccessor](#hakaiCharts.module_scatterplot+colorAccessor) ⇒ <code>chart</code>
+    * [.colorAccessor](#hakaiCharts.module_scatterplot+colorAccessor) ⇒ <code>function</code>
+    * [.keyAccessor](#hakaiCharts.module_scatterplot+keyAccessor) ⇒ <code>chart</code>
+    * [.keyAccessor](#hakaiCharts.module_scatterplot+keyAccessor) ⇒ <code>int</code>
+    * [.radius](#hakaiCharts.module_scatterplot+radius) ⇒ <code>chart</code>
+    * [.radius](#hakaiCharts.module_scatterplot+radius) ⇒ <code>int</code> &#124; <code>function</code>
     * [.rSquared](#hakaiCharts.module_scatterplot+rSquared) ⇒ <code>float</code>
     * [.correlation](#hakaiCharts.module_scatterplot+correlation) ⇒ <code>float</code>
     * [.covariance](#hakaiCharts.module_scatterplot+covariance) ⇒ <code>float</code>
-    * [.render()](#hakaiCharts.module_scatterplot+render) ⇒ <code>scatterplot</code>
-    * [.redraw()](#hakaiCharts.module_scatterplot+redraw) ⇒ <code>scatterplot</code>
+    * [.render()](#hakaiCharts.module_scatterplot+render) ⇒ <code>chart</code>
+    * [.redraw()](#hakaiCharts.module_scatterplot+redraw) ⇒ <code>chart</code>
 
 <a name="hakaiCharts.module_scatterplot+width"></a>
-### scatterplot.width ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get the width attribute of a chart.
+### scatterplot.width ⇒ <code>chart</code>
+Set the width attribute of a chart.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -61,9 +75,14 @@ Set or get the width attribute of a chart.
 | --- | --- | --- |
 | [val] | <code>int</code> | The chart width |
 
+<a name="hakaiCharts.module_scatterplot+width"></a>
+### scatterplot.width ⇒ <code>int</code>
+Get the width attribute of a chart.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+height"></a>
-### scatterplot.height ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get the height attribute of a chart.
+### scatterplot.height ⇒ <code>chart</code>
+Set the height attribute of a chart.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -71,29 +90,44 @@ Set or get the height attribute of a chart.
 | --- | --- | --- |
 | [val] | <code>int</code> | The chart height |
 
+<a name="hakaiCharts.module_scatterplot+height"></a>
+### scatterplot.height ⇒ <code>int</code>
+Get the height attribute of a chart.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+margin"></a>
-### scatterplot.margin ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get the margin attribute of a chart.
+### scatterplot.margin ⇒ <code>chart</code>
+Set the margin attribute of a chart.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [val] | <code>int</code> | The chart margins in format {top: 5, left: 5, right: 10, bottom: 15} |
+| [val] | <code>Object</code> | The chart margins in format {top: 5, left: 5, right: 10, bottom: 15} |
+
+<a name="hakaiCharts.module_scatterplot+margin"></a>
+### scatterplot.margin ⇒ <code>Object</code>
+Get the margin attribute of a chart.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
+<a name="hakaiCharts.module_scatterplot+data"></a>
+### scatterplot.data ⇒ <code>chart</code>
+Set the data that accessor functions refer to.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [val] | <code>Array.&lt;Object&gt;</code> | JSON data being accessed by all accessor functions |
 
 <a name="hakaiCharts.module_scatterplot+data"></a>
-### scatterplot.data ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get the data that accessor functions refer to.
+### scatterplot.data ⇒ <code>Array.&lt;Object&gt;</code>
+Get the data that accessor functions refer to.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [val] | <code>int</code> | The data being accessed by all accessor functions |
-
 <a name="hakaiCharts.module_scatterplot+xAccessor"></a>
-### scatterplot.xAccessor ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get a function used to access the data shown on the x axis.
+### scatterplot.xAccessor ⇒ <code>chart</code>
+Set the function used to access the data shown on the y axis.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -101,9 +135,15 @@ Set or get a function used to access the data shown on the x axis.
 | --- | --- | --- |
 | [val] | <code>function</code> &#124; <code>Number</code> | The x axis data accessor function |
 
+<a name="hakaiCharts.module_scatterplot+xAccessor"></a>
+### scatterplot.xAccessor ⇒ <code>function</code> &#124; <code>Number</code>
+Get the function used to access the data shown on the x axis.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
+**Returns**: <code>function</code> &#124; <code>Number</code> - The x axis data accessor  
 <a name="hakaiCharts.module_scatterplot+yAccessor"></a>
-### scatterplot.yAccessor ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get a function used to access the data shown on the y axis.
+### scatterplot.yAccessor ⇒ <code>chart</code>
+Set the function used to access the data shown on the y axis.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -111,9 +151,15 @@ Set or get a function used to access the data shown on the y axis.
 | --- | --- | --- |
 | [val] | <code>function</code> &#124; <code>Number</code> | The y axis data accessor function |
 
+<a name="hakaiCharts.module_scatterplot+yAccessor"></a>
+### scatterplot.yAccessor ⇒ <code>function</code> &#124; <code>Number</code>
+Get the function used to access the data shown on the y axis.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
+**Returns**: <code>function</code> &#124; <code>Number</code> - The y axis data accessor  
 <a name="hakaiCharts.module_scatterplot+xLabel"></a>
-### scatterplot.xLabel ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get the x axis label.
+### scatterplot.xLabel ⇒ <code>chart</code>
+Set the x axis label.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -121,9 +167,14 @@ Set or get the x axis label.
 | --- | --- | --- |
 | [val] | <code>String</code> | The x label |
 
+<a name="hakaiCharts.module_scatterplot+xLabel"></a>
+### scatterplot.xLabel ⇒ <code>String</code>
+Get the x axis label.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+yLabel"></a>
-### scatterplot.yLabel ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get the y axis label.
+### scatterplot.yLabel ⇒ <code>chart</code>
+Set the y axis label.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -131,9 +182,14 @@ Set or get the y axis label.
 | --- | --- | --- |
 | [val] | <code>String</code> | The y label |
 
+<a name="hakaiCharts.module_scatterplot+yLabel"></a>
+### scatterplot.yLabel ⇒ <code>String</code>
+Get the y axis label.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+xLog"></a>
-### scatterplot.xLog ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get whether the x axis scale should be log transformed.
+### scatterplot.xLog ⇒ <code>chart</code>
+Set the x axis scale as log transformed or not.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -141,9 +197,14 @@ Set or get whether the x axis scale should be log transformed.
 | --- | --- | --- | --- |
 | [val] | <code>Boolean</code> | <code>false</code> | Flag to transform x axis |
 
+<a name="hakaiCharts.module_scatterplot+xLog"></a>
+### scatterplot.xLog ⇒ <code>Boolean</code>
+Get boolean of whether the x axis scale is log transformed.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+yLog"></a>
-### scatterplot.yLog ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get whether the y axis scale should be log transformed.
+### scatterplot.yLog ⇒ <code>chart</code>
+Set the y axis scale as log transformed or not.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -151,9 +212,14 @@ Set or get whether the y axis scale should be log transformed.
 | --- | --- | --- | --- |
 | [val] | <code>Boolean</code> | <code>false</code> | Flag to transform y axis |
 
+<a name="hakaiCharts.module_scatterplot+yLog"></a>
+### scatterplot.yLog ⇒ <code>Boolean</code>
+Get boolean of whether the y axis scale is log transformed.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+color"></a>
-### scatterplot.color ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get a scale function that accepts a data value and returns a color.
+### scatterplot.color ⇒ <code>chart</code>
+Set the color scale function that accepts a data value and returns a color.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -161,9 +227,14 @@ Set or get a scale function that accepts a data value and returns a color.
 | --- | --- | --- | --- |
 | [val] | <code>function</code> | <code>d3.scale.category10()</code> | The color scale function |
 
+<a name="hakaiCharts.module_scatterplot+color"></a>
+### scatterplot.color ⇒ <code>function</code>
+Get the color scale function
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+colorAccessor"></a>
-### scatterplot.colorAccessor ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get a function used to access the data and pass the value to the color function.
+### scatterplot.colorAccessor ⇒ <code>chart</code>
+Set the function used to access the data and pass the value to the color function.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -171,9 +242,14 @@ Set or get a function used to access the data and pass the value to the color fu
 | --- | --- | --- | --- |
 | [val] | <code>function</code> | <code>function(){ return 0; }</code> | The colorAccessor function |
 
+<a name="hakaiCharts.module_scatterplot+colorAccessor"></a>
+### scatterplot.colorAccessor ⇒ <code>function</code>
+Get the function used to access the data point color.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+keyAccessor"></a>
-### scatterplot.keyAccessor ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get a function used to determine which points shown are the same datum.
+### scatterplot.keyAccessor ⇒ <code>chart</code>
+Set a function used to determine which points shown are the same data point.
 Allows for mark translation on redraw.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
@@ -182,10 +258,14 @@ Allows for mark translation on redraw.
 | --- | --- | --- | --- |
 | [val] | <code>function</code> | <code>function(d){ return d.key; }</code> | The keyAccessor function |
 
+<a name="hakaiCharts.module_scatterplot+keyAccessor"></a>
+### scatterplot.keyAccessor ⇒ <code>int</code>
+Get the function used to determine which points shown are the same datum.
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+radius"></a>
-### scatterplot.radius ⇒ <code>int</code> &#124; <code>scatterplot</code>
-Set or get a radius value or a scale function that accepts a
-data value and returns a radius size.
+### scatterplot.radius ⇒ <code>chart</code>
+Set the radius value of the scatterplot
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 
@@ -193,6 +273,11 @@ data value and returns a radius size.
 | --- | --- | --- | --- |
 | [val] | <code>Number</code> | <code>5</code> | The radius in px |
 
+<a name="hakaiCharts.module_scatterplot+radius"></a>
+### scatterplot.radius ⇒ <code>int</code> &#124; <code>function</code>
+Get the radius value of the scatterplot
+
+**Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+rSquared"></a>
 ### scatterplot.rSquared ⇒ <code>float</code>
 Return the R squared value determined by the linear regression function.
@@ -209,15 +294,12 @@ Return the covariance value determined by the linear regression function.
 
 **Kind**: instance property of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+render"></a>
-### scatterplot.render() ⇒ <code>scatterplot</code>
+### scatterplot.render() ⇒ <code>chart</code>
 Draw the chart after parameters have been set.
 
 **Kind**: instance method of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
 <a name="hakaiCharts.module_scatterplot+redraw"></a>
-### scatterplot.redraw() ⇒ <code>scatterplot</code>
+### scatterplot.redraw() ⇒ <code>chart</code>
 Redraw and transform the chart after parameter changes.
 
 **Kind**: instance method of <code>[scatterplot](#hakaiCharts.module_scatterplot)</code>  
-<a name="hakaiCharts"></a>
-## hakaiCharts : <code>object</code>
-**Kind**: global namespace  

@@ -103,7 +103,7 @@ module.exports = function scatterplot(parent) {
   /**
    * Generate the chart using private variables on call to chart.render()
    * @private
-   * @returns {scatterplot}
+   * @returns {chart}
    */
   function _chart() {
     // Create svg object
@@ -218,7 +218,7 @@ module.exports = function scatterplot(parent) {
    * @name render
    * @instance
    * @method
-   * @return {scatterplot}
+   * @return {chart}
    */
   _chart.render = function render() {
     this.call();
@@ -230,7 +230,7 @@ module.exports = function scatterplot(parent) {
    * @name redraw
    * @instance
    * @method
-   * @return {scatterplot}
+   * @return {chart}
    */
   _chart.redraw = function redraw() {
     // Create cleaned dataset that doesn't include non numeric or log(0) values
@@ -322,12 +322,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get the width attribute of a chart.
+   * Set the width attribute of a chart.
    * @name width
    * @instance
    * @param {int} [val] The chart width
+   * @return {chart}
+   */
+  /**
+   * Get the width attribute of a chart.
+   * @name width
+   * @instance
    * @return {int}
-   * @return {scatterplot}
    */
   _chart.width = function width(val) {
     if (!arguments.length) { return _width; }
@@ -336,12 +341,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get the height attribute of a chart.
+   * Set the height attribute of a chart.
    * @name height
    * @instance
    * @param {int} [val] The chart height
+   * @return {chart}
+   */
+  /**
+   * Get the height attribute of a chart.
+   * @name height
+   * @instance
    * @return {int}
-   * @return {scatterplot}
    */
   _chart.height = function height(val) {
     if (!arguments.length) { return _height; }
@@ -350,12 +360,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get the margin attribute of a chart.
+   * Set the margin attribute of a chart.
    * @name margin
    * @instance
-   * @param {int} [val] The chart margins in format {top: 5, left: 5, right: 10, bottom: 15}
-   * @return {int}
-   * @return {scatterplot}
+   * @param {Object} [val] The chart margins in format {top: 5, left: 5, right: 10, bottom: 15}
+   * @return {chart}
+   */
+  /**
+   * Get the margin attribute of a chart.
+   * @name margin
+   * @instance
+   * @return {Object}
    */
   _chart.margin = function margin(val) {
     if (!arguments.length) { return _margin; }
@@ -364,12 +379,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get the data that accessor functions refer to.
+   * Set the data that accessor functions refer to.
    * @name data
    * @instance
-   * @param {int} [val] The data being accessed by all accessor functions
-   * @return {int}
-   * @return {scatterplot}
+   * @param {Object[]} [val] JSON data being accessed by all accessor functions
+   * @return {chart}
+   */
+  /**
+   * Get the data that accessor functions refer to.
+   * @name data
+   * @instance
+   * @return {Object[]}
    */
   _chart.data = function data(val) {
     if (!arguments.length) { return _data; }
@@ -378,12 +398,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get a function used to access the data shown on the x axis.
+   * Set the function used to access the data shown on the y axis.
    * @name xAccessor
    * @instance
    * @param {Function|Number} [val] The x axis data accessor function
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the function used to access the data shown on the x axis.
+   * @name xAccessor
+   * @instance
+   * @return {Function|Number} The x axis data accessor
    */
   _chart.xAccessor = function xAccessor(val) {
     if (!arguments.length) { return _xAccessor; }
@@ -392,12 +417,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get a function used to access the data shown on the y axis.
+   * Set the function used to access the data shown on the y axis.
    * @name yAccessor
    * @instance
    * @param {Function|Number} [val] The y axis data accessor function
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the function used to access the data shown on the y axis.
+   * @name yAccessor
+   * @instance
+   * @return {Function|Number} The y axis data accessor
    */
   _chart.yAccessor = function yAccessor(val) {
     if (!arguments.length) { return _yAccessor; }
@@ -406,12 +436,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get the x axis label.
+   * Set the x axis label.
    * @name xLabel
    * @instance
    * @param {String} [val] The x label
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the x axis label.
+   * @name xLabel
+   * @instance
+   * @return {String}
    */
   _chart.xLabel = function xLabel(val) {
     if (!arguments.length) { return _xLabel; }
@@ -420,12 +455,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get the y axis label.
+   * Set the y axis label.
    * @name yLabel
    * @instance
    * @param {String} [val] The y label
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the y axis label.
+   * @name yLabel
+   * @instance
+   * @return {String}
    */
   _chart.yLabel = function yLabel(val) {
     if (!arguments.length) { return _yLabel; }
@@ -434,12 +474,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get whether the x axis scale should be log transformed.
+   * Set the x axis scale as log transformed or not.
    * @name xLog
    * @instance
    * @param {Boolean} [val=false] Flag to transform x axis
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get boolean of whether the x axis scale is log transformed.
+   * @name xLog
+   * @instance
+   * @return {Boolean}
    */
   _chart.xLog = function xLog(val) {
     if (!arguments.length) { return _xLog; }
@@ -449,12 +494,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get whether the y axis scale should be log transformed.
+   * Set the y axis scale as log transformed or not.
    * @name yLog
    * @instance
    * @param {Boolean} [val=false] Flag to transform y axis
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get boolean of whether the y axis scale is log transformed.
+   * @name yLog
+   * @instance
+   * @return {Boolean}
    */
   _chart.yLog = function yLog(val) {
     if (!arguments.length) { return _yLog; }
@@ -464,12 +514,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get a scale function that accepts a data value and returns a color.
+   * Set the color scale function that accepts a data value and returns a color.
    * @name color
    * @instance
    * @param {Function} [val=d3.scale.category10()] The color scale function
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the color scale function
+   * @name color
+   * @instance
+   * @return {Function}
    */
   _chart.color = function color(val) {
     if (!arguments.length) { return _color; }
@@ -478,12 +533,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get a function used to access the data and pass the value to the color function.
+   * Set the function used to access the data and pass the value to the color function.
    * @name colorAccessor
    * @instance
    * @param {Function} [val=function(){ return 0; }] The colorAccessor function
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the function used to access the data point color.
+   * @name colorAccessor
+   * @instance
+   * @return {Function}
    */
   _chart.colorAccessor = function colorAccessor(val) {
     if (!arguments.length) { return _colorAccessor; }
@@ -492,13 +552,18 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get a function used to determine which points shown are the same datum.
+   * Set a function used to determine which points shown are the same data point.
    * Allows for mark translation on redraw.
    * @name keyAccessor
    * @instance
    * @param {Function} [val=function(d){ return d.key; }] The keyAccessor function
+   * @return {chart}
+   */
+  /**
+   * Get the function used to determine which points shown are the same datum.
+   * @name keyAccessor
+   * @instance
    * @return {int}
-   * @return {scatterplot}
    */
   _chart.keyAccessor = function keyAccessor(val) {
     if (!arguments.length) { return _keyAccessor; }
@@ -507,13 +572,17 @@ module.exports = function scatterplot(parent) {
   };
 
   /**
-   * Set or get a radius value or a scale function that accepts a
-   * data value and returns a radius size.
+   * Set the radius value of the scatterplot
    * @name radius
    * @instance
    * @param {Number} [val=5] The radius in px
-   * @return {int}
-   * @return {scatterplot}
+   * @return {chart}
+   */
+  /**
+   * Get the radius value of the scatterplot
+   * @name radius
+   * @instance
+   * @return {int|Function}
    */
   _chart.radius = function radius(val) {
     if (!arguments.length) { return _radius; }
