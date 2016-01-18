@@ -3,7 +3,6 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: './index.js',
-  // devtool: 'source-map',
   output: {
     path: path.resolve('./dist'),
     filename: 'hakai_charts.min.js',
