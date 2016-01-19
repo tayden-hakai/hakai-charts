@@ -26,8 +26,8 @@ module.exports = function scatterplot(parent) {
   let _yLog = false;
   let _xAxis;
   let _yAxis;
-  let _xAccessor;
-  let _yAccessor;
+  let _xAccessor = d => d.x;
+  let _yAccessor = d => d.y;
   let _xLabel;
   let _yLabel;
   let _color = d3.scale.category10();
