@@ -18,7 +18,7 @@ gulp.task('document', function document() {
 });
 
 gulp.task('webpack', function buildProd(callback) {
-  webpack(webpackConfig, function(err, stats) {
+  webpack(webpackConfig, function compileProd(err, stats) {
     if (err) throw new gutil.PluginError('webpack', err);
     gutil.log('[webpack]', stats.toString());
     callback();
@@ -29,7 +29,7 @@ gulp.task('webpack-dev-server', function webpackServer() {
   const conf = webpackConfig;
   conf.devtool = 'source-map';
 
-  const compiler = webpack(conf, function(err, stats) {
+  const compiler = webpack(conf, function compileDev(err, stats) {
     if (err) throw new gutil.PluginError('webpack', err);
     gutil.log('[webpack-dev-server]', stats.toString());
   });
