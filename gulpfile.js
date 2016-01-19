@@ -1,21 +1,9 @@
-const fs = require('fs');
 const gulp = require('gulp');
-const jsdoc = require('gulp-jsdoc-to-markdown');
-const concat = require('gulp-concat');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const gutil = require('gulp-util');
 
-const pkg = JSON.parse(fs.readFileSync('package.json'));
 const webpackConfig = require('./webpack.config.js');
-
-// Generate README documentation from JSDoc comments
-gulp.task('document', function document() {
-  gulp.src([pkg.main, './src/js/**/*.js', '!./src/js/**/_*.js'])
-    .pipe(concat('README.md'))
-    .pipe(jsdoc())
-    .pipe(gulp.dest('.'));
-});
 
 gulp.task('webpack', function buildProd(callback) {
   webpack(webpackConfig, function compileProd(err, stats) {
