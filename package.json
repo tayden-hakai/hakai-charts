@@ -4,7 +4,7 @@
   "description": "Reusable charts that display arbitrary data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Running tests\" && karma start --single-run",
+    "test": "karma start --single-run --browsers PhantomJS",
     "preversion": "echo \"Building production bundle\" && webpack -p",
     "build": "echo \"Building production bundle\" && webpack -p"
   },
