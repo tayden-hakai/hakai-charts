@@ -1,28 +1,9 @@
-## Modules
-
-<dl>
-<dt><a href="#module_hakaiCharts">hakaiCharts</a></dt>
-<dd><p>Main module used for namespacing all charts under hakaiCharts</p>
-</dd>
-<dt><a href="#hakaiCharts.module_scatterplot">scatterplot</a> ⇒ <code>object</code></dt>
-<dd><p>A reusable d3 scatterplot generator</p>
-</dd>
-</dl>
-
-<a name="module_hakaiCharts"></a>
-## hakaiCharts
-Main module used for namespacing all charts under hakaiCharts
-
 <a name="hakaiCharts.module_scatterplot"></a>
 ## scatterplot ⇒ <code>object</code>
 A reusable d3 scatterplot generator
 
 **Returns**: <code>object</code> - scatterplot chart  
-**See**
-
-- [example](./examples/scatterplot_example.html)
-- [example](http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/scatterplot_example.html)
-
+**See**: [example](http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/scatterplot_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
