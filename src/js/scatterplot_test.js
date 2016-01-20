@@ -1,7 +1,7 @@
 /* eslint-disable func-names, no-undef */
 
 const d3 = require('d3');
-const scatterplot = require('../src/js/scatterplot.js');
+const scatterplot = require('./scatterplot.js');
 
 describe('Scatterplot', function () {
   let chart;
