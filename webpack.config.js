@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './index.js',
   output: {
-    path: path.resolve('./dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'hakai_charts.min.js',
     library: 'hakaiCharts',
   },
@@ -20,8 +20,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-  ],
 };

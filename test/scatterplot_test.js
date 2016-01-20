@@ -143,25 +143,25 @@ describe('Scatterplot', function () {
     });
   });
 
-  describe('keyAccessor', function () {
-    xit('should have a sensible default');
-    xit('should set and get a keyAccessor correctly');
+  xdescribe('keyAccessor', function () {
+    it('should have a sensible default');
+    it('should set and get a keyAccessor correctly');
   });
 
-  describe('radius', function () {
-    xit('should have a sensible default');
-    xit('should set and get a radius correctly');
+  xdescribe('radius', function () {
+    it('should have a sensible default');
+    it('should set and get a radius correctly');
   });
 
-  describe('rSquared', function () {
-    xit('should return the correct rSquared value');
+  xdescribe('rSquared', function () {
+    it('should return the correct rSquared value');
   });
 
-  describe('correlation', function () {
-    xit('should return the correct correlation value');
+  xdescribe('correlation', function () {
+    it('should return the correct correlation value');
   });
 
-  describe('covariance', function () {
-    xit('should return the correct covariance value');
+  xdescribe('covariance', function () {
+    it('should return the correct covariance value');
   });
 });
