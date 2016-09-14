@@ -283,15 +283,15 @@ function verticalLine(parent) {
   };
 
   /**
-   * Set the margin attribute of the context chart.
-   * @name margin
+   * Set the margin2 attribute of the context chart.
+   * @name margin2
    * @instance
    * @param {Object} [val] The chart margins in format {top: 5, left: 5, right: 10, bottom: 15}
    * @return {chart}
    */
   /**
    * Get the margin attribute of the context chart.
-   * @name margin
+   * @name margin2
    * @instance
    * @return {Object}
    */

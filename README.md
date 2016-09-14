@@ -346,8 +346,8 @@ A reusable d3 vertical line plot generator
 * [verticalLine](#hakaiCharts.module_verticalLine) ⇒ <code>object</code>
     * [.margin](#hakaiCharts.module_verticalLine+margin) ⇒ <code>chart</code>
     * [.margin](#hakaiCharts.module_verticalLine+margin) ⇒ <code>Object</code>
-    * [.margin](#hakaiCharts.module_verticalLine+margin) ⇒ <code>chart</code>
-    * [.margin](#hakaiCharts.module_verticalLine+margin) ⇒ <code>Object</code>
+    * [.margin2](#hakaiCharts.module_verticalLine+margin2) ⇒ <code>chart</code>
+    * [.margin2](#hakaiCharts.module_verticalLine+margin2) ⇒ <code>Object</code>
     * [.width](#hakaiCharts.module_verticalLine+width) ⇒ <code>chart</code>
     * [.width](#hakaiCharts.module_verticalLine+width) ⇒ <code>int</code>
     * [.height](#hakaiCharts.module_verticalLine+height) ⇒ <code>chart</code>
@@ -386,10 +386,10 @@ Set the margin attribute of the focus chart.
 Get the margin attribute of the focus chart.
 
 **Kind**: instance property of <code>[verticalLine](#hakaiCharts.module_verticalLine)</code>  
-<a name="hakaiCharts.module_verticalLine+margin"></a>
+<a name="hakaiCharts.module_verticalLine+margin2"></a>
 
-### verticalLine.margin ⇒ <code>chart</code>
-Set the margin attribute of the context chart.
+### verticalLine.margin2 ⇒ <code>chart</code>
+Set the margin2 attribute of the context chart.
 
 **Kind**: instance property of <code>[verticalLine](#hakaiCharts.module_verticalLine)</code>  
 
@@ -397,9 +397,9 @@ Set the margin attribute of the context chart.
 | --- | --- | --- |
 | [val] | <code>Object</code> | The chart margins in format {top: 5, left: 5, right: 10, bottom: 15} |
 
-<a name="hakaiCharts.module_verticalLine+margin"></a>
+<a name="hakaiCharts.module_verticalLine+margin2"></a>
 
-### verticalLine.margin ⇒ <code>Object</code>
+### verticalLine.margin2 ⇒ <code>Object</code>
 Get the margin attribute of the context chart.
 
 **Kind**: instance property of <code>[verticalLine](#hakaiCharts.module_verticalLine)</code>  
