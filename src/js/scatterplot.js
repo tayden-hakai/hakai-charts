@@ -10,7 +10,7 @@ import * as ss from 'simple-statistics';
  * @module scatterplot
  * @memberof hakaiCharts
  * @author Taylor Denouden
- * @see {@link http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/scatterplot_example.html|example}
+ * @see {@link http://htmlpreview.github.io/?https://github.com/tayden/hakai-charts/blob/master/examples/scatterplot_example.html|example}
  * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} scatterplot chart
  */

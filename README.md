@@ -15,7 +15,7 @@
 A reusable d3 scatterplot generator
 
 **Returns**: <code>object</code> - scatterplot chart  
-**See**: [example](http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/scatterplot_example.html)  
+**See**: [example](http://htmlpreview.github.io/?https://github.com/tayden/hakai-charts/blob/master/examples/scatterplot_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
@@ -335,7 +335,7 @@ Redraw and transform the chart after parameter changes.
 A reusable d3 vertical line plot generator
 
 **Returns**: <code>object</code> - verticalLine chart  
-**See**: [example](http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/vertical_line_example.html)  
+**See**: [example](http://htmlpreview.github.io/?https://github.com/tayden/hakai-charts/blob/master/examples/vertical_line_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
