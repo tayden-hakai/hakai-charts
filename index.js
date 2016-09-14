@@ -1,8 +1,13 @@
+import scatterplot from './src/js/scatterplot';
+// import parallelCoordinates from './src/js/parallel_coordinates';
+import verticalLine from './src/js/vertical_line';
+
 /**
  * Main module used for namespacing all charts under hakaiCharts
  * @module hakaiCharts
  */
 module.exports = {
-  // parallelCoordinates: require('./src/js/parallel_coordinates'),
-  scatterplot: require('./src/js/scatterplot'),
+  // parallelCoordinates,
+  scatterplot,
+  verticalLine,
 };

@@ -7,7 +7,7 @@
   <body>
     <div id="scatterplot"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="../dist/hakai_charts.min.js"></script>
     <script>
       var dataset = [
@@ -34,7 +34,7 @@
         .xLabel("Length of name")
         .yAccessor(function(d) { return d.fav_number; })
         .yLabel("Favourite number")
-        .color(d3.scale.ordinal()
+        .color(d3.scaleOrdinal()
           .domain(["Male", "Female"])
           .range(["blue", "pink"])
         )
