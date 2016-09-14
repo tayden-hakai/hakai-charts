@@ -9,7 +9,7 @@ import * as d3 from 'd3';
  * @module verticalLine
  * @memberof hakaiCharts
  * @author Taylor Denouden
- * @see {@link http://htmlpreview.github.io/?https://github.com/tayden/hakai-charts/blob/master/examples/vertical_line_example.html|example}
+ * @see {@link https://cdn.rawgit.com/tayden/hakai-charts/master/examples/vertical_line_example.html|example}
  * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} verticalLine chart
  */
