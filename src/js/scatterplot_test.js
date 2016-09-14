@@ -1,7 +1,7 @@
 /* eslint-disable func-names, no-undef */
 
-const d3 = require('d3');
-const scatterplot = require('./scatterplot.js');
+import * as d3 from 'd3';
+import scatterplot from './scatterplot.js';
 
 describe('Scatterplot', function () {
   let chart;
@@ -119,14 +119,12 @@ describe('Scatterplot', function () {
 
   describe('color', function () {
     it('should be have a sensible default', function () {
-      expect(chart.color().domain()).toEqual(d3.scale.category10().domain());
-      expect(chart.color().range()).toEqual(d3.scale.category10().range());
+      expect(chart.color()).toEqual(d3.schemeCategory10);
     });
 
     it('should set and get a color scale correctly', function () {
-      expect(chart.color(d3.scale.category20()));
-      expect(chart.color().domain()).toEqual(d3.scale.category20().domain());
-      expect(chart.color().range()).toEqual(d3.scale.category20().range());
+      chart.color(d3.schemeCategory20);
+      expect(chart.color()).toEqual(d3.schemeCategory20);
     });
   });
 

@@ -1,8 +1,8 @@
-/* global d3 */
 // Load stylesheet
 require('../styles/scatterplot.scss');
-// Include and bundle simple statistics
-const ss = require('simple-statistics');
+
+import * as d3 from 'd3';
+import * as ss from 'simple-statistics';
 
 /**
  * A reusable d3 scatterplot generator
@@ -14,13 +14,13 @@ const ss = require('simple-statistics');
  * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} scatterplot chart
  */
-module.exports = function scatterplot(parent) {
+function scatterplot(parent) {
   let _width;
   let _height;
   let _margin;
   let _data;
-  let _x = d3.scale.linear();
-  let _y = d3.scale.linear();
+  let _x = d3.scaleLinear();
+  let _y = d3.scaleLinear();
   let _xLog = false;
   let _yLog = false;
   let _xAxis;
@@ -29,7 +29,7 @@ module.exports = function scatterplot(parent) {
   let _yAccessor = d => d.y;
   let _xLabel;
   let _yLabel;
-  let _color = d3.scale.category10();
+  let _color = d3.schemeCategory10;
   let _colorAccessor = () => 0;
   let _keyAccessor = d => d.key;
   let _radius = 5;
@@ -124,13 +124,11 @@ module.exports = function scatterplot(parent) {
       .range([_height, 0]);
 
     // Create svg axis generators
-    _xAxis = d3.svg.axis()
+    _xAxis = d3.axisBottom()
       .scale(_x)
-      .orient('bottom')
       .tickSize(-_height);
-    _yAxis = d3.svg.axis()
+    _yAxis = d3.axisLeft()
       .scale(_y)
-      .orient('left')
       .tickSize(-_width);
 
     // Add axes to chart
@@ -488,7 +486,7 @@ module.exports = function scatterplot(parent) {
   _chart.xLog = function xLog(val) {
     if (!arguments.length) { return _xLog; }
     _xLog = val;
-    _x = _xLog ? d3.scale.log() : d3.scale.linear();
+    _x = _xLog ? d3.scaleLog() : d3.scaleLinear();
     return _chart;
   };
 
@@ -508,7 +506,7 @@ module.exports = function scatterplot(parent) {
   _chart.yLog = function yLog(val) {
     if (!arguments.length) { return _yLog; }
     _yLog = val;
-    _y = _yLog ? d3.scale.log() : d3.scale.linear();
+    _y = _yLog ? d3.scaleLog() : d3.scaleLinear();
     return _chart;
   };
 
@@ -516,7 +514,7 @@ module.exports = function scatterplot(parent) {
    * Set the color scale function that accepts a data value and returns a color.
    * @name color
    * @instance
-   * @param {Function} [val=d3.scale.category10()] The color scale function
+   * @param {Function} [val=d3.schemeCategory10] The color scale function
    * @return {chart}
    */
   /**
@@ -620,4 +618,6 @@ module.exports = function scatterplot(parent) {
   };
 
   return _chart;
-};
+}
+
+export default scatterplot;
