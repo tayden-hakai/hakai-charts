@@ -35,8 +35,8 @@ function verticalLine(parent) {
   let _height;
   let _brush;
   let _data;
-  let _keyAccessor;
-  let _valueAccessor;
+  let _keyAccessor = d => d.key;
+  let _valueAccessor = d => d.value;
   let _xAccessor = d => d.x;
   let _yAccessor = d => d.y;
   let _xLabel;

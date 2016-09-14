@@ -1,6 +1,6 @@
-/* eslint-disable func-names, no-undef */
+/* eslint-disable func-names, no-undef, no-unused-expressions */
 
-import * as d3 from 'd3';
+import { schemeCategory10, schemeCategory20 } from 'd3-scale';
 import { expect } from 'chai';
 import scatterplot from '../scatterplot.js';
 
@@ -50,12 +50,9 @@ describe('Scatterplot', function () {
 
   describe('xAccessor', function () {
     const data = { x: 1, value: 2 };
-
-    describe('default option', function () {
-      it('should be sensible', function () {
-        const xAccessor = chart.xAccessor();
-        expect(xAccessor(data)).to.equal(1);
-      });
+    it('should have a sensible default', function () {
+      const xAccessor = chart.xAccessor();
+      expect(xAccessor(data)).to.equal(1);
     });
     it('should set and get an xAccessor correctly', function () {
       chart.xAccessor(function (d) { return d.value; });
@@ -66,12 +63,9 @@ describe('Scatterplot', function () {
 
   describe('yAccessor', function () {
     const data = { y: 1, value: 2 };
-
-    describe('default option', function () {
-      it('should be sensible', function () {
-        const yAccessor = chart.yAccessor();
-        expect(yAccessor(data)).to.equal(1);
-      });
+    it('should have a sensible default', function () {
+      const yAccessor = chart.yAccessor();
+      expect(yAccessor(data)).to.equal(1);
     });
     it('should set and get an yAccessor correctly', function () {
       chart.yAccessor(function (d) { return d.value; });
@@ -120,12 +114,11 @@ describe('Scatterplot', function () {
 
   describe('color', function () {
     it('should be have a sensible default', function () {
-      expect(chart.color()).to.deep.equal(d3.schemeCategory10);
+      expect(chart.color()).to.deep.equal(schemeCategory10);
     });
-
     it('should set and get a color scale correctly', function () {
-      chart.color(d3.schemeCategory20);
-      expect(chart.color()).to.deep.equal(d3.schemeCategory20);
+      chart.color(schemeCategory20);
+      expect(chart.color()).to.deep.equal(schemeCategory20);
     });
   });
 
@@ -142,14 +135,27 @@ describe('Scatterplot', function () {
     });
   });
 
-  xdescribe('keyAccessor', function () {
-    it('should have a sensible default');
-    it('should set and get a keyAccessor correctly');
+  describe('keyAccessor', function () {
+    const data = { x: 1, value: 2, key: 0 };
+    it('should have a sensible default', function () {
+      const keyAccessor = chart.keyAccessor();
+      expect(keyAccessor(data)).to.equal(0);
+    });
+    it('should set and get an keyAccessor correctly', function () {
+      chart.keyAccessor(function (d) { return d.value; });
+      const keyAccessor = chart.keyAccessor();
+      expect(keyAccessor(data)).to.equal(2);
+    });
   });
 
-  xdescribe('radius', function () {
-    it('should have a sensible default');
-    it('should set and get a radius correctly');
+  describe('radius', function () {
+    it('should default to 5', function () {
+      expect(chart.radius()).to.equal(5);
+    });
+    it('should set and get an radius correctly', function () {
+      chart.radius(20);
+      expect(chart.radius()).to.equal(20);
+    });
   });
 
   xdescribe('rSquared', function () {

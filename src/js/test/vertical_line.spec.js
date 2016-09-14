@@ -1,6 +1,5 @@
 /* eslint-disable func-names, no-undef */
 
-import * as d3 from 'd3';
 import { expect } from 'chai';
 import verticalLine from '../vertical_line.js';
 
@@ -59,12 +58,9 @@ describe('Vertical Line', function () {
 
   describe('xAccessor', function () {
     const data = { x: 1, value: 2 };
-
-    describe('default option', function () {
-      it('should be sensible', function () {
-        const xAccessor = chart.xAccessor();
-        expect(xAccessor(data)).to.equal(1);
-      });
+    it('should have a sensible default', function () {
+      const xAccessor = chart.xAccessor();
+      expect(xAccessor(data)).to.equal(1);
     });
     it('should set and get an xAccessor correctly', function () {
       chart.xAccessor(function (d) { return d.value; });
@@ -75,12 +71,9 @@ describe('Vertical Line', function () {
 
   describe('yAccessor', function () {
     const data = { y: 1, value: 2 };
-
-    describe('default option', function () {
-      it('should be sensible', function () {
-        const yAccessor = chart.yAccessor();
-        expect(yAccessor(data)).to.equal(1);
-      });
+    it('should have a sensible default', function () {
+      const yAccessor = chart.yAccessor();
+      expect(yAccessor(data)).to.equal(1);
     });
     it('should set and get an yAccessor correctly', function () {
       chart.yAccessor(function (d) { return d.value; });
@@ -104,23 +97,33 @@ describe('Vertical Line', function () {
   });
 
   xdescribe('color', function () {
-    it('should be have a sensible default', function () {
-      expect(chart.color()).to.deep.equal(d3.schemeCategory10);
-    });
+    it('should be have a sensible default');
+    it('should set and get a color correctly');
+  });
 
-    it('should set and get a color scale correctly', function () {
-      chart.color(d3.schemeCategory20);
-      expect(chart.color()).to.deep.equal(d3.schemeCategory20);
+  describe('keyAccessor', function () {
+    const data = { x: 1, value: 2, key: 0 };
+    it('should have a sensible default', function () {
+      const keyAccessor = chart.keyAccessor();
+      expect(keyAccessor(data)).to.equal(0);
+    });
+    it('should set and get an keyAccessor correctly', function () {
+      chart.keyAccessor(function (d) { return d.x; });
+      const keyAccessor = chart.keyAccessor();
+      expect(keyAccessor(data)).to.equal(1);
     });
   });
 
-  xdescribe('keyAccessor', function () {
-    it('should have a sensible default');
-    it('should set and get a keyAccessor correctly');
-  });
-
-  xdescribe('valueAccessor', function () {
-    it('should have a sensible default');
-    it('should set and get a keyAccessor correctly');
+  describe('valueAccessor', function () {
+    const data = { x: 1, value: 2, key: 0 };
+    it('should have a sensible default', function () {
+      const valueAccessor = chart.valueAccessor();
+      expect(valueAccessor(data)).to.equal(2);
+    });
+    it('should set and get an valueAccessor correctly', function () {
+      chart.valueAccessor(function (d) { return d.x; });
+      const valueAccessor = chart.valueAccessor();
+      expect(valueAccessor(data)).to.equal(1);
+    });
   });
 });
