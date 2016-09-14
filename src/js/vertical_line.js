@@ -22,8 +22,8 @@ function verticalLine(parent) {
   let _data;
   let _keyAccessor;
   let _valueAccessor;
-  let _xAccessor;
-  let _yAccessor;
+  let _xAccessor = d => d.x;
+  let _yAccessor = d => d.y;
   let _xLabel;
   let _yLabel;
 
@@ -217,72 +217,72 @@ function verticalLine(parent) {
     return _chart;
   };
 
-  _chart.render = () => {
-    _chart();
+  _chart.render = function render() {
+    this.call();
     return _chart;
   };
 
-  _chart.margin = (val) => {
+  _chart.margin = function margin(val) {
     if (!arguments.length) return _margin;
     _margin = val;
     return _chart;
   };
 
-  _chart.margin2 = (val) => {
+  _chart.margin2 = function margin2(val) {
     if (!arguments.length) return _margin2;
     _margin2 = val;
     return _chart;
   };
 
-  _chart.width = (val) => {
+  _chart.width = function width(val) {
     if (!arguments.length) return _width;
     _width = val;
     return _chart;
   };
 
-  _chart.height = (val) => {
+  _chart.height = function height(val) {
     if (!arguments.length) return _height;
     _height = val;
     return _chart;
   };
 
-  _chart.data = (val) => {
+  _chart.data = function data(val) {
     if (!arguments.length) return _data;
     _data = val;
     return _chart;
   };
 
-  _chart.keyAccessor = (val) => {
+  _chart.keyAccessor = function keyAccessor(val) {
     if (!arguments.length) return _keyAccessor;
     _keyAccessor = val;
     return _chart;
   };
 
-  _chart.valueAccessor = (val) => {
+  _chart.valueAccessor = function valueAccessor(val) {
     if (!arguments.length) return _valueAccessor;
     _valueAccessor = val;
     return _chart;
   };
 
-  _chart.xAccessor = (val) => {
+  _chart.xAccessor = function xAccessor(val) {
     if (!arguments.length) return _xAccessor;
     _xAccessor = val;
     return _chart;
   };
 
-  _chart.yAccessor = (val) => {
+  _chart.yAccessor = function yAccessor(val) {
     if (!arguments.length) return _yAccessor;
     _yAccessor = val;
     return _chart;
   };
 
-  _chart.yLabel = (val) => {
+  _chart.yLabel = function yLabel(val) {
     if (!arguments.length) return _yLabel;
     _yLabel = val;
     return _chart;
   };
 
-  _chart.xLabel = (val) => {
+  _chart.xLabel = function xLabel(val) {
     if (!arguments.length) return _xLabel;
     _xLabel = val;
     return _chart;
