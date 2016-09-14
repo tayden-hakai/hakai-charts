@@ -1,7 +1,12 @@
 // Load stylesheet
 require('../styles/vertical_line.scss');
 
-import * as d3 from 'd3';
+import { extent, bisector } from 'd3-array';
+import { axisBottom, axisLeft } from 'd3-axis';
+import { brushY } from 'd3-brush';
+import { scaleLinear } from 'd3-scale';
+import { line, curveCatmullRom } from 'd3-shape';
+import { select, event, mouse } from 'd3-selection';
 
 /**
  * A reusable d3 vertical line plot generator
@@ -45,8 +50,8 @@ function verticalLine(parent) {
    * @return {function} line - The function used to generate a line from bound data
    */
   function drawLine(x, y) {
-    return d3.line()
-      .curve(d3.curveCatmullRom)
+    return line()
+      .curve(curveCatmullRom)
       .x(d => x(_xAccessor(d)))
       .y(d => y(_yAccessor(d)));
   }
@@ -57,10 +62,10 @@ function verticalLine(parent) {
    * @private
    */
   function brushed() {
-    if (!d3.event.sourceEvent) return; // only transition after input
+    if (!event.sourceEvent) return; // only transition after input
 
-    const selection = d3.event.selection;
-    if (!selection) _y.domain(d3.extent(_data, _yAccessor));
+    const selection = event.selection;
+    if (!selection) _y.domain(extent(_data, _yAccessor));
     else _y.domain(selection.reverse().map(_y2.invert));
 
     _focus.select('.line').transition()
@@ -79,21 +84,21 @@ function verticalLine(parent) {
     const width2 = _width - _margin2.left - _margin2.right;
     const height = _height - _margin.top - _margin.bottom;
 
-    _x = d3.scaleLinear().range([0, width]).domain(d3.extent(_data, _xAccessor));
-    _x2 = d3.scaleLinear().range([0, width2]).domain(d3.extent(_data, _xAccessor));
+    _x = scaleLinear().range([0, width]).domain(extent(_data, _xAccessor));
+    _x2 = scaleLinear().range([0, width2]).domain(extent(_data, _xAccessor));
 
-    _y = d3.scaleLinear().range([height, 0]).domain(d3.extent(_data, _yAccessor));
-    _y2 = d3.scaleLinear().range([height, 0]).domain(d3.extent(_data, _yAccessor));
+    _y = scaleLinear().range([height, 0]).domain(extent(_data, _yAccessor));
+    _y2 = scaleLinear().range([height, 0]).domain(extent(_data, _yAccessor));
 
-    _xAxis = d3.axisBottom().scale(_x);
-    _yAxis = d3.axisLeft().scale(_y);
-    _yAxis2 = d3.axisLeft().scale(_y2);
+    _xAxis = axisBottom().scale(_x);
+    _yAxis = axisLeft().scale(_y);
+    _yAxis2 = axisLeft().scale(_y2);
 
-    _brush = d3.brushY()
+    _brush = brushY()
       .extent([[0, 0], [width + width2, height]])
       .on('start brush end', brushed);
 
-    _svg = d3.select(parent).append('svg')
+    _svg = select(parent).append('svg')
         .attr('width', width + _margin.left + _margin.right)
         .attr('height', height + _margin.top + _margin.bottom);
 
@@ -181,8 +186,8 @@ function verticalLine(parent) {
         .on('mouseover', () => tooltip.style('display', null))
         .on('mouseout', () => tooltip.style('display', 'none'))
         .on('mousemove', function mousemove() {
-          const y0 = _y.invert(d3.mouse(this)[1]);
-          const i = d3.bisector(d => _yAccessor(d)).left(_data, y0, 1, _data.length);
+          const y0 = _y.invert(mouse(this)[1]);
+          const i = bisector(d => _yAccessor(d)).left(_data, y0, 1, _data.length);
           const d0 = _data[i - 1];
           const d1 = _data[i];
           const d = y0 - _yAccessor(d0) > _yAccessor(d1) - y0 ? d1 : d0;
@@ -206,10 +211,10 @@ function verticalLine(parent) {
     const contextline = _context.select('.line').datum(_data);
 
     // Exit, Update, Enter logic
-    _y.domain(d3.extent(_data, _yAccessor));
-    _y2.domain(d3.extent(_data, _yAccessor));
-    _x.domain(d3.extent(_data, _xAccessor));
-    _x2.domain(d3.extent(_data, _xAccessor));
+    _y.domain(extent(_data, _yAccessor));
+    _y2.domain(extent(_data, _yAccessor));
+    _x.domain(extent(_data, _xAccessor));
+    _x2.domain(extent(_data, _xAccessor));
 
    // update axes
     _focus.select('.x.axis')
@@ -246,7 +251,7 @@ function verticalLine(parent) {
       .text(_xLabel);
 
     // clear the brush
-    d3.select('.brush').call(_brush.move, null);
+    select('.brush').call(_brush.move, null);
 
     return _chart;
   };

@@ -41,6 +41,12 @@
   },
   "dependencies": {
     "d3": "^4.2.3",
+    "d3-array": "^1.0.1",
+    "d3-axis": "^1.0.3",
+    "d3-brush": "^1.0.2",
+    "d3-scale": "^1.0.3",
+    "d3-selection": "^1.0.2",
+    "d3-shape": "^1.0.3",
     "simple-statistics": "^2.1.0"
   }
 }
