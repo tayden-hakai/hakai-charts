@@ -1,7 +1,11 @@
 // Load stylesheet
 require('../styles/scatterplot.scss');
 
-import * as d3 from 'd3';
+import { extent } from 'd3-array';
+import { axisBottom, axisLeft } from 'd3-axis';
+import { scaleLinear, scaleLog, schemeCategory10 } from 'd3-scale';
+import { select } from 'd3-selection';
+
 import * as ss from 'simple-statistics';
 
 /**
@@ -19,8 +23,8 @@ function scatterplot(parent) {
   let _height;
   let _margin;
   let _data;
-  let _x = d3.scaleLinear();
-  let _y = d3.scaleLinear();
+  let _x = scaleLinear();
+  let _y = scaleLinear();
   let _xLog = false;
   let _yLog = false;
   let _xAxis;
@@ -29,7 +33,7 @@ function scatterplot(parent) {
   let _yAccessor = d => d.y;
   let _xLabel;
   let _yLabel;
-  let _color = d3.schemeCategory10;
+  let _color = schemeCategory10;
   let _colorAccessor = () => 0;
   let _keyAccessor = d => d.key;
   let _radius = 5;
@@ -80,7 +84,7 @@ function scatterplot(parent) {
     const regLine = ss.linearRegressionLine(mb);
 
     // Calculated statistics
-    const rSquared = ss.rSquared(ssData, regLine);
+    const rSqrd = ss.rSquared(ssData, regLine);
     const correlation = ss.sampleCorrelation(
       ssData.map(d => d[0]),
       ssData.map(d => d[1])
@@ -93,7 +97,7 @@ function scatterplot(parent) {
     return {
       reg: mb,
       regLine,
-      rSquared,
+      rSqrd,
       correlation,
       covariance,
     };
@@ -106,7 +110,7 @@ function scatterplot(parent) {
    */
   function _chart() {
     // Create svg object
-    _svg = d3.select(parent).append('svg')
+    _svg = select(parent).append('svg')
       .attr('width', _width + _margin.left + _margin.right)
       .attr('height', _height + _margin.top + _margin.bottom)
     .append('g')
@@ -118,16 +122,16 @@ function scatterplot(parent) {
         .filter(d => !((_xLog && _xAccessor(d) === 0) || (_yLog && _yAccessor(d) === 0)));
 
     // Set x and y axis based on selected attributes
-    _x.domain(d3.extent(cleanData, _xAccessor))
+    _x.domain(extent(cleanData, _xAccessor))
       .range([0, _width]);
-    _y.domain(d3.extent(cleanData, _yAccessor))
+    _y.domain(extent(cleanData, _yAccessor))
       .range([_height, 0]);
 
     // Create svg axis generators
-    _xAxis = d3.axisBottom()
+    _xAxis = axisBottom()
       .scale(_x)
       .tickSize(-_height);
-    _yAxis = d3.axisLeft()
+    _yAxis = axisLeft()
       .scale(_y)
       .tickSize(-_width);
 
@@ -172,7 +176,7 @@ function scatterplot(parent) {
     // Calculate statistics and regression line
     const stats = calculateStats(cleanData);
     _regLine = stats.regLine;
-    _rSquared = stats.rSquared;
+    _rSquared = stats.rSqrd;
     _correlation = stats.correlation;
     _covariance = stats.covariance;
 
@@ -236,9 +240,9 @@ function scatterplot(parent) {
         .filter(d => !((_xLog && _xAccessor(d) === 0) || (_yLog && _yAccessor(d) === 0)));
 
     // Update x and y domain
-    _x.domain(d3.extent(cleanData, _xAccessor))
+    _x.domain(extent(cleanData, _xAccessor))
       .range([0, _width]);
-    _y.domain(d3.extent(cleanData, _yAccessor))
+    _y.domain(extent(cleanData, _yAccessor))
       .range([_height, 0]);
 
     // Update axes generator scale
@@ -265,7 +269,7 @@ function scatterplot(parent) {
     // Calculate statistics and regression line
     const stats = calculateStats(cleanData);
     _regLine = stats.regLine;
-    _rSquared = stats.rSquared;
+    _rSquared = stats.rSqrd;
     _correlation = stats.correlation;
     _covariance = stats.covariance;
 
@@ -486,7 +490,7 @@ function scatterplot(parent) {
   _chart.xLog = function xLog(val) {
     if (!arguments.length) { return _xLog; }
     _xLog = val;
-    _x = _xLog ? d3.scaleLog() : d3.scaleLinear();
+    _x = _xLog ? scaleLog() : scaleLinear();
     return _chart;
   };
 
@@ -506,7 +510,7 @@ function scatterplot(parent) {
   _chart.yLog = function yLog(val) {
     if (!arguments.length) { return _yLog; }
     _yLog = val;
-    _y = _yLog ? d3.scaleLog() : d3.scaleLinear();
+    _y = _yLog ? scaleLog() : scaleLinear();
     return _chart;
   };
 
@@ -514,7 +518,7 @@ function scatterplot(parent) {
    * Set the color scale function that accepts a data value and returns a color.
    * @name color
    * @instance
-   * @param {Function} [val=d3.schemeCategory10] The color scale function
+   * @param {Function} [val=schemeCategory10] The color scale function
    * @return {chart}
    */
   /**
