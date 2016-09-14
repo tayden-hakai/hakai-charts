@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers js:babel-register --require ignore-styles src/**/*.spec.js",
-    "preversion": "webpack -p",
-    "build": "webpack -p",
+    "preversion": "webpack --config webpack.prod.config.js --progress -p",
+    "build": "webpack --config webpack.prod.config.js --progress -p",
+    "build:dev": "webpack --config webpack.dev.config.js --progress -p",
     "doc": "jsdoc2md src/js/**/*.js > README.md"
   },
   "repository": {

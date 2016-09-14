@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'eval',
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -9,14 +10,9 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        query: { presets: ['es2015'] },
-      }, {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass'],
-      },
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.s?css$/, loader: 'style!css!sass' },
     ],
   },
+  debug: true,
 };
