@@ -3,6 +3,16 @@ require('../styles/vertical_line.scss');
 
 import * as d3 from 'd3';
 
+/**
+ * A reusable d3 vertical line plot generator
+ * @name verticalLine
+ * @module verticalLine
+ * @memberof hakaiCharts
+ * @author Taylor Denouden
+ * @see {@link http://htmlpreview.github.io/?https://github.com/tayden-hakai/hakai-charts/blob/master/examples/vertical_line_example.html|example}
+ * @param {String|DOM_node} parent A DOM element to append the chart to
+ * @return {object} verticalLine chart
+ */
 function verticalLine(parent) {
   let _svg;
   let _focus;
@@ -27,6 +37,13 @@ function verticalLine(parent) {
   let _xLabel;
   let _yLabel;
 
+  /**
+   * Given x and y scales, generate a function that will draw an svg line.
+   * @private
+   * @param {function} x - The x axis scale
+   * @param {function} y - The y axis scale
+   * @return {function} line - The function used to generate a line from bound data
+   */
   function drawLine(x, y) {
     return d3.line()
       .curve(d3.curveCatmullRom)
@@ -34,6 +51,11 @@ function verticalLine(parent) {
       .y(d => y(_yAccessor(d)));
   }
 
+  /**
+   * Handler for brush events on the context chart.
+   * Zooms and pans the focus chart and animates the transition
+   * @private
+   */
   function brushed() {
     if (!d3.event.sourceEvent) return; // only transition after input
 
@@ -47,6 +69,11 @@ function verticalLine(parent) {
       .transition().call(_yAxis);
   }
 
+  /**
+   * Generate the chart using private variables on call to chart.render()
+   * @private
+   * @returns {chart}
+   */
   function _chart() {
     const width = _width - _margin.left - _margin.right;
     const width2 = _width - _margin2.left - _margin2.right;
@@ -165,6 +192,13 @@ function verticalLine(parent) {
         });
   }
 
+  /**
+   * Redraw and transform the chart after parameter changes.
+   * @name redraw
+   * @instance
+   * @method
+   * @return {chart}
+   */
   _chart.redraw = () => {
     const width = _width - _margin.left - _margin.right;
     const height = _height - _margin.top - _margin.bottom;
@@ -217,71 +251,222 @@ function verticalLine(parent) {
     return _chart;
   };
 
+  /**
+   * Draw the chart after parameters have been set.
+   * @name render
+   * @instance
+   * @method
+   * @return {chart}
+   */
   _chart.render = function render() {
     this.call();
     return _chart;
   };
 
+  /**
+   * Set the margin attribute of the focus chart.
+   * @name margin
+   * @instance
+   * @param {Object} [val] The chart margins in format {top: 5, left: 5, right: 10, bottom: 15}
+   * @return {chart}
+   */
+  /**
+   * Get the margin attribute of the focus chart.
+   * @name margin
+   * @instance
+   * @return {Object}
+   */
   _chart.margin = function margin(val) {
     if (!arguments.length) return _margin;
     _margin = val;
     return _chart;
   };
 
+  /**
+   * Set the margin attribute of the context chart.
+   * @name margin
+   * @instance
+   * @param {Object} [val] The chart margins in format {top: 5, left: 5, right: 10, bottom: 15}
+   * @return {chart}
+   */
+  /**
+   * Get the margin attribute of the context chart.
+   * @name margin
+   * @instance
+   * @return {Object}
+   */
   _chart.margin2 = function margin2(val) {
     if (!arguments.length) return _margin2;
     _margin2 = val;
     return _chart;
   };
 
+  /**
+   * Set the width attribute of a chart.
+   * @name width
+   * @instance
+   * @param {int} [val] The chart width
+   * @return {chart}
+   */
+  /**
+   * Get the width attribute of a chart.
+   * @name width
+   * @instance
+   * @return {int}
+   */
   _chart.width = function width(val) {
     if (!arguments.length) return _width;
     _width = val;
     return _chart;
   };
 
+  /**
+   * Set the height attribute of a chart.
+   * @name height
+   * @instance
+   * @param {int} [val] The chart height
+   * @return {chart}
+   */
+  /**
+   * Get the height attribute of a chart.
+   * @name height
+   * @instance
+   * @return {int}
+   */
   _chart.height = function height(val) {
     if (!arguments.length) return _height;
     _height = val;
     return _chart;
   };
 
+  /**
+   * Set the data that accessor functions refer to.
+   * @name data
+   * @instance
+   * @param {Object[]} [val] JSON data being accessed by all accessor functions
+   * @return {chart}
+   */
+  /**
+   * Get the data that accessor functions refer to.
+   * @name data
+   * @instance
+   * @return {Object[]}
+   */
   _chart.data = function data(val) {
     if (!arguments.length) return _data;
     _data = val;
     return _chart;
   };
 
+  /**
+   * Set a function used to determine which points shown are the same data point.
+   * Allows for mark translation on redraw.
+   * @name keyAccessor
+   * @instance
+   * @param {Function} [val=function(d){ return d.key; }] The keyAccessor function
+   * @return {chart}
+   */
+  /**
+   * Get the function used to determine which points shown are the same datum.
+   * @name keyAccessor
+   * @instance
+   * @return {int}
+   */
   _chart.keyAccessor = function keyAccessor(val) {
     if (!arguments.length) return _keyAccessor;
     _keyAccessor = val;
     return _chart;
   };
 
+  /**
+   * Set the function used to access the data shown in the tooltip.
+   * @name xAccessor
+   * @instance
+   * @param {Function|Number} [val] The tooltip value data accessor function
+   * @return {chart}
+   */
+  /**
+   * Get the function used to access the data shown in the tooltip.
+   * @name xAccessor
+   * @instance
+   * @return {Function|Number} The tooltip value data accessor
+   */
   _chart.valueAccessor = function valueAccessor(val) {
     if (!arguments.length) return _valueAccessor;
     _valueAccessor = val;
     return _chart;
   };
 
+  /**
+   * Set the function used to access the data shown on the x axis.
+   * @name xAccessor
+   * @instance
+   * @param {Function|Number} [val] The x axis data accessor function
+   * @return {chart}
+   */
+  /**
+   * Get the function used to access the data shown on the x axis.
+   * @name xAccessor
+   * @instance
+   * @return {Function|Number} The x axis data accessor
+   */
   _chart.xAccessor = function xAccessor(val) {
     if (!arguments.length) return _xAccessor;
     _xAccessor = val;
     return _chart;
   };
 
+  /**
+   * Set the function used to access the data shown on the y axis.
+   * @name yAccessor
+   * @instance
+   * @param {Function|Number} [val] The y axis data accessor function
+   * @return {chart}
+   */
+  /**
+   * Get the function used to access the data shown on the y axis.
+   * @name yAccessor
+   * @instance
+   * @return {Function|Number} The y axis data accessor
+   */
   _chart.yAccessor = function yAccessor(val) {
     if (!arguments.length) return _yAccessor;
     _yAccessor = val;
     return _chart;
   };
 
+  /**
+   * Set the y axis label.
+   * @name yLabel
+   * @instance
+   * @param {String} [val] The y label
+   * @return {chart}
+   */
+  /**
+   * Get the y axis label.
+   * @name yLabel
+   * @instance
+   * @return {String}
+   */
   _chart.yLabel = function yLabel(val) {
     if (!arguments.length) return _yLabel;
     _yLabel = val;
     return _chart;
   };
 
+  /**
+   * Set the x axis label.
+   * @name xLabel
+   * @instance
+   * @param {String} [val] The x label
+   * @return {chart}
+   */
+  /**
+   * Get the x axis label.
+   * @name xLabel
+   * @instance
+   * @return {String}
+   */
   _chart.xLabel = function xLabel(val) {
     if (!arguments.length) return _xLabel;
     _xLabel = val;

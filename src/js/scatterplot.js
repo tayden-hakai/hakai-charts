@@ -395,7 +395,7 @@ function scatterplot(parent) {
   };
 
   /**
-   * Set the function used to access the data shown on the y axis.
+   * Set the function used to access the data shown on the x axis.
    * @name xAccessor
    * @instance
    * @param {Function|Number} [val] The x axis data accessor function
