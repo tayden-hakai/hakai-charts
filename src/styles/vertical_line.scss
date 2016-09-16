@@ -1,31 +1,33 @@
 @import 'common';
 
-.axis path,
-.axis line {
-  fill: none;
-  shape-rendering: crispEdges;
-  stroke: $black;
-}
+.vertical-line {
+  .axis path,
+  .axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: $black;
+  }
 
-.line {
-  clip-path: 'url(#clip)';
-  fill: none;
-  stroke: $steelblue;
-  stroke-width: 1.5px;
-}
+  .line {
+    clip-path: 'url(#clip)';
+    fill: none;
+    stroke: $steelblue;
+    stroke-width: 1.5px;
+  }
 
-.overlay {
-  fill: none;
-  pointer-events: all;
-}
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
 
-.tooltip circle {
-  fill: none;
-  stroke: $steelblue;
-}
+  .tooltip circle {
+    fill: none;
+    stroke: $steelblue;
+  }
 
-.brush .extent {
-  fill-opacity: .125;
-  shape-rendering: crispEdges;
-  stroke: $white;
+  .brush .extent {
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+    stroke: $white;
+  }
 }

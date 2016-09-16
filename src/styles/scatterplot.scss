@@ -1,43 +1,45 @@
 @import 'common';
 
-svg {
-  font: 10px sans-serif;
-}
-
-.axis {
-  line {
-    stroke: $gray;
+.scatterplot {
+  svg {
+    font: 10px sans-serif;
   }
 
-  path {
-    display: none;
-  }
-}
+  .axis {
+    line {
+      stroke: $gray;
+    }
 
-.frame {
-  fill: none;
-  stroke: $dark-gray;
-}
-
-.label {
-  font: 11px sans-serif;
-  font-weight: bold;
-}
-
-circle {
-  fill-opacity: .7;
-}
-
-.mark {
-  text {
-    display: none;
+    path {
+      display: none;
+    }
   }
 
-  &:hover text {
-    display: block;
+  .frame {
+    fill: none;
+    stroke: $dark-gray;
   }
-}
 
-.log-checkbox input {
-  margin-right: 5px;
+  .label {
+    font: 11px sans-serif;
+    font-weight: bold;
+  }
+
+  circle {
+    fill-opacity: .7;
+  }
+
+  .mark {
+    text {
+      display: none;
+    }
+
+    &:hover text {
+      display: block;
+    }
+  }
+
+  .log-checkbox input {
+    margin-right: 5px;
+  }
 }

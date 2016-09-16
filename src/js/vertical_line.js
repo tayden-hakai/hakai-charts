@@ -1,12 +1,12 @@
-// Load stylesheet
-require('../styles/vertical_line.scss');
-
 import { extent, bisector } from 'd3-array';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { brushY } from 'd3-brush';
 import { scaleLinear } from 'd3-scale';
 import { line, curveCatmullRom } from 'd3-shape';
 import { select, event, mouse } from 'd3-selection';
+
+// Load stylesheet
+require('../styles/vertical_line.scss');
 
 /**
  * A reusable d3 vertical line plot generator
@@ -99,6 +99,7 @@ function verticalLine(parent) {
       .on('start brush end', brushed);
 
     _svg = select(parent).append('svg')
+        .attr('class', 'vertical-line')
         .attr('width', width + _margin.left + _margin.right)
         .attr('height', height + _margin.top + _margin.bottom);
 

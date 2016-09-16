@@ -1,36 +1,45 @@
 @import 'common';
 
-svg {
-  font: 10px sans-serif;
-}
-
-.background path {
-  fill: none;
-  opacity: .5;
-  stroke: $light-gray;
-  stroke-width: 1px;
-}
-
-.foreground path {
-  fill: none;
-  opacity: .5;
-  stroke-width: 1px;
-}
-
-.brush .extent {
-  fill-opacity: .3;
-  stroke: $white;
-}
-
-.axis {
-  line,
-  path {
-    fill: none;
-    shape-rendering: crispEdges;
-    stroke: $black;
+.parallel-coordinates {
+  svg {
+    font: 10px sans-serif;
   }
 
-  text {
-    text-shadow: 0 1px 0 $white, 1px 0 0 $white, 0 -1px 0 $white, -1px 0 0 $white;
+  .background path {
+    fill: none;
+    opacity: .5;
+    stroke: $light-gray;
+    stroke-width: 1px;
+  }
+
+  .foreground path {
+    fill: none;
+    opacity: .5;
+    stroke-width: 1px;
+  }
+
+  .brush {
+    .extent {
+      fill-opacity: .3;
+      stroke: $white;
+    }
+
+    rect {
+      width: 16px;
+      x: -8;
+    }
+  }
+
+  .axis {
+    line,
+    path {
+      fill: none;
+      shape-rendering: crispEdges;
+      stroke: $black;
+    }
+
+    text {
+      text-shadow: 0 1px 0 $white, 1px 0 0 $white, 0 -1px 0 $white, -1px 0 0 $white;
+    }
   }
 }
