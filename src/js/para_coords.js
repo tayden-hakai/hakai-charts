@@ -173,7 +173,7 @@ module.exports = function parallelCoordinates(parent) {
     // Add and store a brush for each axis.
     g.append('g')
         .attr('class', 'brush')
-        .call(d3.brushY().on('end', brush));
+        .call(d3.brushY().on('brush end', brush));
 
     // Color _dimensions by z-score
     _onClick(_dimensions[0]);
