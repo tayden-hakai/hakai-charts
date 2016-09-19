@@ -139,6 +139,7 @@ module.exports = function parallelCoordinates(parent) {
         .attr('transform', d => `translate(${_x(d)})`)
          .call(d3.drag()
            .on('start', (d) => {
+             _onClick(d);
              _dragging[d] = _x(d);
              _background.attr('visibility', 'hidden');
            })
@@ -175,9 +176,6 @@ module.exports = function parallelCoordinates(parent) {
     g.append('g')
         .attr('class', 'brush')
         .call(d3.brushY().on('brush end', brush));
-
-    // Color _dimensions by z-score
-    _onClick(_dimensions[0]);
   }
 
   /**
