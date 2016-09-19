@@ -5,6 +5,7 @@ module.exports = {
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
     filename: 'hakai_charts.min.js',
     library: 'hakaiCharts',
   },
