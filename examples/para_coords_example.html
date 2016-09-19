@@ -23,17 +23,11 @@
         .range(['#e41a1c', '#377eb8', '#4daf4a'])
       )
       .colorAccessor(d => d.species)
-      .scales({
-        sepalLength: d3.scaleLinear(),
-        sepalWidth: d3.scaleLinear(),
-        petalLength: d3.scaleLinear(),
-        petalWidth: d3.scaleLinear()
-      })
-      .labels({
-        sepalLength: 'Sepal Length',
-        sepalWidth: 'Sepal Width',
-        petalLength: 'Petal Length',
-        petalWidth: 'Petal Width',
+      .yAccessors({
+        'Sepal Length': d => d.sepalLength,
+        'Sepal Width': d => d.sepalWidth,
+        'Petal Length': d => d.petalLength,
+        'Petal Width': d => d.petalWidth
       })
       .render()
     </script>

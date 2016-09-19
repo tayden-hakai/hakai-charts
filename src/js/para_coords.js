@@ -13,12 +13,13 @@ require('../styles/para_coords.scss');
  * @return {parallelCoordinatesChart}
  */
 module.exports = function parallelCoordinates(parent) {
-  const _y = {};
   const _dragging = {};
   const _line = d3.line();
   const _axis = d3.axisLeft();
-  let _color = () => 'steelblue';
-  let _colorAccessor = () => {};
+  let _y = {};
+  let _yAccessors = {};
+  let _color = d3.schemeCategory10;
+  let _colorAccessor = () => 0;
   let _width;
   let _height;
   let _margin;
@@ -28,8 +29,6 @@ module.exports = function parallelCoordinates(parent) {
   let _foreground;
   let _dimensions;
   let _data;
-  let _scales = {};
-  let _labels = {};
   let _onClick = () => {};
 
   /**
@@ -49,7 +48,9 @@ module.exports = function parallelCoordinates(parent) {
    * @return {string} - SVG path text
    */
   function path(d) {
-    return _line(_dimensions.map(p => [position(p), _y[p](d[p])]));
+    return _line(_dimensions.map(dim =>
+      [position(dim), _y[dim](_yAccessors[dim](d))]
+    ));
   }
 
   /**
@@ -77,7 +78,7 @@ module.exports = function parallelCoordinates(parent) {
 
     _foreground.style('display', (d) => {
       return dims.data().every((dim, i) => {
-        const lineVal = _y[dim](d[dim]);
+        const lineVal = _y[dim](_yAccessors[dim](d));
         const dimExtent = extents[i];
 
         // show line if axis not brushed or line value falls within brush extent
@@ -100,14 +101,14 @@ module.exports = function parallelCoordinates(parent) {
         .attr('transform', `translate(${_margin.left}, ${_margin.top})`);
 
     // Create a scale for each dimension
-    Object.keys(_scales).forEach((k) => {
-      _y[k] = _scales[k]
-          .domain(d3.extent(_data.map(d => d[k])))
+    Object.keys(_yAccessors).forEach((k) => {
+      _y[k] = (_y[k] || d3.scaleLinear())
+          .domain(d3.extent(_data.map(d => _yAccessors[k](d))))
           .range([_height, 0]);
     });
 
     // Extract the list of _dimensions
-    _dimensions = Object.keys(_scales);
+    _dimensions = Object.keys(_yAccessors);
     _x = d3.scaleBand()
         .domain(_dimensions)
         .range([0, _width])
@@ -168,7 +169,7 @@ module.exports = function parallelCoordinates(parent) {
     g.append('text')
         .style('text-anchor', 'middle')
         .attr('y', -9)
-        .text(d => _labels[d] || d);
+        .text(d => d);
 
     // Add and store a brush for each axis.
     g.append('g')
@@ -208,7 +209,7 @@ module.exports = function parallelCoordinates(parent) {
         .remove();
 
     // Adjust axes domains
-    Object.keys(_scales).forEach((k) => {
+    Object.keys(_yAccessors).forEach((k) => {
       const extent = d3.extent(_data.map(d => d[k]));
       if (extent[0] === extent[1]) {
         extent[0] -= extent[0] / 2;
@@ -308,28 +309,28 @@ module.exports = function parallelCoordinates(parent) {
   };
 
   /**
-   * @name scales
+   * @name y
    * @instance
-   * @param {object} scales
+   * @param {object} y
    * @return {object}
    * @return {scatterplot}
    */
-  _chart.scales = function scales(val) {
-    if (!arguments.length) { return _scales; }
-    _scales = val;
+  _chart.y = function y(val) {
+    if (!arguments.length) { return _y; }
+    _y = val;
     return _chart;
   };
 
   /**
-   * @name labels
+   * @name yAccessors
    * @instance
-   * @param {object} labels
+   * @param {object} yAccessors
    * @return {object}
    * @return {scatterplot}
    */
-  _chart.labels = function labels(val) {
-    if (!arguments.length) { return _labels; }
-    _labels = val;
+  _chart.yAccessors = function yAccessors(val) {
+    if (!arguments.length) { return _yAccessors; }
+    _yAccessors = val;
     return _chart;
   };
 
