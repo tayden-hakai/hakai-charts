@@ -9,7 +9,7 @@ require('../styles/para_coords.scss');
  * @module parallelCoordinates
  * @memberof hakaiCharts
  * @author Taylor Denouden
- * @see {@link https://cdn.rawgit.com/tayden/hakai-charts/v1.1.0/examples/para_coords_example.html|example}
+ * @see {@link https://cdn.rawgit.com/tayden/hakai-charts/v1.1.1/examples/para_coords_example.html|example}
  * @param {String|DOM_node} parent - A dom element to append the chart to
  * @return {parallelCoordinatesChart}
  */
