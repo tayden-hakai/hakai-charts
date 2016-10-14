@@ -17,7 +17,7 @@
 ## parallelCoordinates ⇒ <code>parallelCoordinatesChart</code>
 A reusable d3 parallel coordinates generator with statistical coloring
 
-**See**: [example](https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/para_coords_example.html)  
+**See**: [example](https://cdn.rawgit.com/tayden/hakai-charts/v1.1.0/examples/para_coords_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
@@ -133,7 +133,7 @@ A reusable d3 parallel coordinates generator with statistical coloring
 A reusable d3 scatterplot generator
 
 **Returns**: <code>object</code> - scatterplot chart  
-**See**: [example](https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/scatterplot_example.html)  
+**See**: [example](https://cdn.rawgit.com/tayden/hakai-charts/v1.1.0/examples/scatterplot_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
@@ -453,7 +453,7 @@ Redraw and transform the chart after parameter changes.
 A reusable d3 vertical line plot generator
 
 **Returns**: <code>object</code> - verticalLine chart  
-**See**: [example](https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/vertical_line_example.html)  
+**See**: [example](https://cdn.rawgit.com/tayden/hakai-charts/v1.1.0/examples/vertical_line_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
