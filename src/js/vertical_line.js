@@ -64,14 +64,17 @@ function verticalLine(parent) {
   function brushed() {
     if (!event.sourceEvent) return; // only transition after input
 
-    const selection = event.selection;
-    if (!selection) _y.domain(extent(_data, _yAccessor));
-    else _y.domain(selection.reverse().map(_y2.invert));
+    let selection = event.selection;
+    if (!selection) {
+      // Alter selection to full height of chart
+      selection = extent(_data, _yAccessor).map(_y2).reverse();
+      select('.brush').call(_brush.move, selection);
+    }
 
-    _focus.select('.line').transition()
-        .attr('d', drawLine(_x, _y));
-    _focus.select('.y.axis')
-        .transition().call(_yAxis);
+    _y.domain([_y2.invert(selection[1]), _y2.invert(selection[0])]);
+
+    _focus.select('.line').attr('d', drawLine(_x, _y));
+    _focus.select('.y.axis').call(_yAxis);
   }
 
   /**
@@ -104,7 +107,7 @@ function verticalLine(parent) {
         .attr('height', height + _margin.top + _margin.bottom);
 
     _svg.append('defs').append('clipPath')
-        .attr('id', 'clip')
+        .attr('id', 'line-clip')
       .append('rect')
         .attr('width', width)
         .attr('height', height);
@@ -153,6 +156,7 @@ function verticalLine(parent) {
     _focus.append('path')
         .datum(_data)
         .attr('class', 'line')
+        .attr('clip-path', 'url(#line-clip)')
         .attr('d', drawLine(_x, _y));
 
     _context.append('path')
@@ -164,9 +168,7 @@ function verticalLine(parent) {
     _context.append('g')
         .attr('class', 'y brush')
         .call(_brush)
-      .selectAll('rect')
-        .attr('x', -6)
-        .attr('width', width2 + 7);
+        .call(_brush.move, [0, height]);
 
     // rollover
     const tooltip = _focus.append('g')
@@ -250,7 +252,7 @@ function verticalLine(parent) {
         .text(_xLabel);
 
     // clear the brush
-    select('.brush').call(_brush.move, null);
+    select('.brush').call(_brush.move, [0, height]);
 
     return _chart;
   };
