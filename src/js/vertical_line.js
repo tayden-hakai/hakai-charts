@@ -14,7 +14,7 @@ require('../styles/vertical_line.scss');
  * @module verticalLine
  * @memberof hakaiCharts
  * @author Taylor Denouden
- * @see {@link https://cdn.rawgit.com/tayden/hakai-charts/master/examples/vertical_line_example.html|example}
+ * @see {@link https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/vertical_line_example.html|example}
  * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} verticalLine chart
  */

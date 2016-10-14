@@ -1,6 +1,9 @@
 ## Modules
 
 <dl>
+<dt><a href="#hakaiCharts.module_parallelCoordinates">parallelCoordinates</a> ⇒ <code>parallelCoordinatesChart</code></dt>
+<dd><p>A reusable d3 parallel coordinates generator with statistical coloring</p>
+</dd>
 <dt><a href="#hakaiCharts.module_scatterplot">scatterplot</a> ⇒ <code>object</code></dt>
 <dd><p>A reusable d3 scatterplot generator</p>
 </dd>
@@ -9,13 +12,128 @@
 </dd>
 </dl>
 
+<a name="hakaiCharts.module_parallelCoordinates"></a>
+
+## parallelCoordinates ⇒ <code>parallelCoordinatesChart</code>
+A reusable d3 parallel coordinates generator with statistical coloring
+
+**See**: [example](https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/para_coords_example.html)  
+**Author:** Taylor Denouden  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parent | <code>String</code> &#124; <code>DOM_node</code> | A dom element to append the chart to |
+
+
+* [parallelCoordinates](#hakaiCharts.module_parallelCoordinates) ⇒ <code>parallelCoordinatesChart</code>
+    * [.width](#hakaiCharts.module_parallelCoordinates+width) ⇒ <code>int</code> &#124; <code>scatterplot</code>
+    * [.height](#hakaiCharts.module_parallelCoordinates+height) ⇒ <code>int</code> &#124; <code>scatterplot</code>
+    * [.margin](#hakaiCharts.module_parallelCoordinates+margin) ⇒ <code>int</code> &#124; <code>scatterplot</code>
+    * [.data](#hakaiCharts.module_parallelCoordinates+data) ⇒ <code>int</code> &#124; <code>scatterplot</code>
+    * [.y](#hakaiCharts.module_parallelCoordinates+y) ⇒ <code>object</code> &#124; <code>scatterplot</code>
+    * [.yAccessors](#hakaiCharts.module_parallelCoordinates+yAccessors) ⇒ <code>object</code> &#124; <code>scatterplot</code>
+    * [.color](#hakaiCharts.module_parallelCoordinates+color) ⇒ <code>object</code> &#124; <code>scatterplot</code>
+    * [.colorAccessor](#hakaiCharts.module_parallelCoordinates+colorAccessor) ⇒ <code>object</code> &#124; <code>scatterplot</code>
+    * [.onClick](#hakaiCharts.module_parallelCoordinates+onClick) ⇒ <code>object</code> &#124; <code>scatterplot</code>
+    * [.render()](#hakaiCharts.module_parallelCoordinates+render) ⇒ <code>parallelCoordinatesChart</code>
+    * [.redraw()](#hakaiCharts.module_parallelCoordinates+redraw) ⇒ <code>parallelCoordinatesChart</code>
+
+<a name="hakaiCharts.module_parallelCoordinates+width"></a>
+
+### parallelCoordinates.width ⇒ <code>int</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [val] | <code>int</code> | Value to set width to |
+
+<a name="hakaiCharts.module_parallelCoordinates+height"></a>
+
+### parallelCoordinates.height ⇒ <code>int</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| val | <code>int</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+margin"></a>
+
+### parallelCoordinates.margin ⇒ <code>int</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| val | <code>int</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+data"></a>
+
+### parallelCoordinates.data ⇒ <code>int</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| val | <code>int</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+y"></a>
+
+### parallelCoordinates.y ⇒ <code>object</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| y | <code>object</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+yAccessors"></a>
+
+### parallelCoordinates.yAccessors ⇒ <code>object</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| yAccessors | <code>object</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+color"></a>
+
+### parallelCoordinates.color ⇒ <code>object</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| color | <code>object</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+colorAccessor"></a>
+
+### parallelCoordinates.colorAccessor ⇒ <code>object</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| colorAccessor | <code>object</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+onClick"></a>
+
+### parallelCoordinates.onClick ⇒ <code>object</code> &#124; <code>scatterplot</code>
+**Kind**: instance property of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+
+| Param | Type |
+| --- | --- |
+| onClick | <code>object</code> | 
+
+<a name="hakaiCharts.module_parallelCoordinates+render"></a>
+
+### parallelCoordinates.render() ⇒ <code>parallelCoordinatesChart</code>
+**Kind**: instance method of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
+<a name="hakaiCharts.module_parallelCoordinates+redraw"></a>
+
+### parallelCoordinates.redraw() ⇒ <code>parallelCoordinatesChart</code>
+**Kind**: instance method of <code>[parallelCoordinates](#hakaiCharts.module_parallelCoordinates)</code>  
 <a name="hakaiCharts.module_scatterplot"></a>
 
 ## scatterplot ⇒ <code>object</code>
 A reusable d3 scatterplot generator
 
 **Returns**: <code>object</code> - scatterplot chart  
-**See**: [example](https://cdn.rawgit.com/tayden/hakai-charts/master/examples/scatterplot_example.html)  
+**See**: [example](https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/scatterplot_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
@@ -239,7 +357,7 @@ Set the color scale function that accepts a data value and returns a color.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [val] | <code>function</code> | <code>d3.schemeCategory10</code> | The color scale function |
+| [val] | <code>function</code> | <code>schemeCategory10</code> | The color scale function |
 
 <a name="hakaiCharts.module_scatterplot+color"></a>
 
@@ -335,7 +453,7 @@ Redraw and transform the chart after parameter changes.
 A reusable d3 vertical line plot generator
 
 **Returns**: <code>object</code> - verticalLine chart  
-**See**: [example](https://cdn.rawgit.com/tayden/hakai-charts/master/examples/vertical_line_example.html)  
+**See**: [example](https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/vertical_line_example.html)  
 **Author:** Taylor Denouden  
 
 | Param | Type | Description |
