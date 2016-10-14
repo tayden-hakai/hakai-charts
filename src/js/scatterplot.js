@@ -13,7 +13,7 @@ require('../styles/scatterplot.scss');
  * @module scatterplot
  * @memberof hakaiCharts
  * @author Taylor Denouden
- * @see {@link https://github.com/tayden/hakai-charts/blob/v1.1.0/examples/scatterplot_example.html|example}
+ * @see {@link https://cdn.rawgit.com/tayden/hakai-charts/v1.1.0/examples/scatterplot_example.html|example}
  * @param {String|DOM_node} parent A DOM element to append the chart to
  * @return {object} scatterplot chart
  */
