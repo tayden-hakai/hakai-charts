@@ -1,12 +1,12 @@
-// Load stylesheet
-require('../styles/vertical_line.scss');
-
 import { extent, bisector } from 'd3-array';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { brushY } from 'd3-brush';
 import { scaleLinear } from 'd3-scale';
 import { line, curveCatmullRom } from 'd3-shape';
 import { select, event, mouse } from 'd3-selection';
+
+// Load stylesheet
+require('../styles/vertical_line.scss');
 
 /**
  * A reusable d3 vertical line plot generator
@@ -35,8 +35,8 @@ function verticalLine(parent) {
   let _height;
   let _brush;
   let _data;
-  let _keyAccessor;
-  let _valueAccessor;
+  let _keyAccessor = d => d.key;
+  let _valueAccessor = d => d.value;
   let _xAccessor = d => d.x;
   let _yAccessor = d => d.y;
   let _xLabel;
@@ -51,9 +51,9 @@ function verticalLine(parent) {
    */
   function drawLine(x, y) {
     return line()
-      .curve(curveCatmullRom)
-      .x(d => x(_xAccessor(d)))
-      .y(d => y(_yAccessor(d)));
+        .curve(curveCatmullRom)
+        .x(d => x(_xAccessor(d)))
+        .y(d => y(_yAccessor(d)));
   }
 
   /**
@@ -64,14 +64,17 @@ function verticalLine(parent) {
   function brushed() {
     if (!event.sourceEvent) return; // only transition after input
 
-    const selection = event.selection;
-    if (!selection) _y.domain(extent(_data, _yAccessor));
-    else _y.domain(selection.reverse().map(_y2.invert));
+    let selection = event.selection;
+    if (!selection) {
+      // Alter selection to full height of chart
+      selection = extent(_data, _yAccessor).map(_y2).reverse();
+      select('.brush').call(_brush.move, selection);
+    }
 
-    _focus.select('.line').transition()
-        .attr('d', drawLine(_x, _y));
-    _focus.select('.y.axis')
-      .transition().call(_yAxis);
+    _y.domain([_y2.invert(selection[1]), _y2.invert(selection[0])]);
+
+    _focus.select('.line').attr('d', drawLine(_x, _y));
+    _focus.select('.y.axis').call(_yAxis);
   }
 
   /**
@@ -95,15 +98,16 @@ function verticalLine(parent) {
     _yAxis2 = axisLeft().scale(_y2);
 
     _brush = brushY()
-      .extent([[0, 0], [width + width2, height]])
-      .on('start brush end', brushed);
+        .extent([[0, 0], [width + width2, height]])
+        .on('start brush end', brushed);
 
     _svg = select(parent).append('svg')
+        .attr('class', 'vertical-line')
         .attr('width', width + _margin.left + _margin.right)
         .attr('height', height + _margin.top + _margin.bottom);
 
     _svg.append('defs').append('clipPath')
-        .attr('id', 'clip')
+        .attr('id', 'line-clip')
       .append('rect')
         .attr('width', width)
         .attr('height', height);
@@ -133,25 +137,26 @@ function verticalLine(parent) {
 
     // axis labels
     _svg.append('text')
-      .attr('class', 'y label')
-      .attr('text-anchor', 'end')
-      .attr('y', 6)
-      .attr('dy', '.75em')
-      .attr('transform', `translate(0, ${_margin.top}) rotate(-90)`)
-      .text(_yLabel);
+        .attr('class', 'y label')
+        .attr('text-anchor', 'end')
+        .attr('y', 6)
+        .attr('dy', '.75em')
+        .attr('transform', `translate(0, ${_margin.top}) rotate(-90)`)
+        .text(_yLabel);
 
     _svg.append('text')
-      .attr('class', 'x label')
-      .attr('text-anchor', 'end')
-      .attr('y', 6)
-      .attr('dy', '.75em')
-      .attr('transform', `translate(${width + _margin.left}, ${height + _margin.bottom})`)
-      .text(_xLabel);
+        .attr('class', 'x label')
+        .attr('text-anchor', 'end')
+        .attr('y', 6)
+        .attr('dy', '.75em')
+        .attr('transform', `translate(${width + _margin.left}, ${height + _margin.bottom})`)
+        .text(_xLabel);
 
     // line
     _focus.append('path')
         .datum(_data)
         .attr('class', 'line')
+        .attr('clip-path', 'url(#line-clip)')
         .attr('d', drawLine(_x, _y));
 
     _context.append('path')
@@ -161,11 +166,9 @@ function verticalLine(parent) {
 
     // brush
     _context.append('g')
-      .attr('class', 'y brush')
-      .call(_brush)
-    .selectAll('rect')
-      .attr('x', -6)
-      .attr('width', width2 + 7);
+        .attr('class', 'y brush')
+        .call(_brush)
+        .call(_brush.move, [0, height]);
 
     // rollover
     const tooltip = _focus.append('g')
@@ -218,12 +221,10 @@ function verticalLine(parent) {
 
    // update axes
     _focus.select('.x.axis')
-      .transition()
-        .call(_xAxis);
+        .transition().call(_xAxis);
 
     _focus.select('.y.axis')
-      .transition()
-        .call(_yAxis);
+        .transition().call(_yAxis);
 
     // remove extra line
     focusline.exit().remove();
@@ -245,13 +246,13 @@ function verticalLine(parent) {
 
    // update axis labels
     _svg.select('.y.label')
-      .text(_yLabel);
+        .text(_yLabel);
 
     _svg.select('.x.label')
-      .text(_xLabel);
+        .text(_xLabel);
 
     // clear the brush
-    select('.brush').call(_brush.move, null);
+    select('.brush').call(_brush.move, [0, height]);
 
     return _chart;
   };

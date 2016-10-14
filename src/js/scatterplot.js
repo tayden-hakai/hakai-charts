@@ -1,12 +1,11 @@
-// Load stylesheet
-require('../styles/scatterplot.scss');
-
 import { extent } from 'd3-array';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { scaleLinear, scaleLog, schemeCategory10 } from 'd3-scale';
 import { select } from 'd3-selection';
-
 import * as ss from 'simple-statistics';
+
+// Load stylesheet
+require('../styles/scatterplot.scss');
 
 /**
  * A reusable d3 scatterplot generator
@@ -75,7 +74,7 @@ function scatterplot(parent) {
    */
   function calculateStats(data) {
     // Get regression line formula
-    const ssData = data.map(function ssData(d) {
+    const ssData = data.map((d) => {
       const xD = _xLog ? log10(_xAccessor(d)) : _xAccessor(d);
       const yD = _yLog ? log10(_yAccessor(d)) : _yAccessor(d);
       return [xD, yD];
@@ -111,10 +110,11 @@ function scatterplot(parent) {
   function _chart() {
     // Create svg object
     _svg = select(parent).append('svg')
+      .attr('class', 'scatterplot')
       .attr('width', _width + _margin.left + _margin.right)
       .attr('height', _height + _margin.top + _margin.bottom)
     .append('g')
-      .attr('transform', 'translate(' + _margin.left + ',' + _margin.top + ')');
+      .attr('transform', `translate(${_margin.left}, ${_margin.top})`);
 
     // Create cleaned dataset that doesn't include non numeric or log(0) values
     const cleanData = _data
@@ -138,7 +138,7 @@ function scatterplot(parent) {
     // Add axes to chart
     _svg.append('g')
         .attr('class', 'x axis')
-        .attr('transform', 'translate(0, ' + _height + ')')
+        .attr('transform', `translate(0, ${_height})`)
         .call(_xAxis);
     _svg.append('g')
         .attr('class', 'y axis')

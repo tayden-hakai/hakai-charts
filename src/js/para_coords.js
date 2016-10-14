@@ -1,4 +1,7 @@
-/* global d3 */
+import * as d3 from 'd3';
+
+// Load stylesheet
+require('../styles/para_coords.scss');
 
 /**
  * A reusable d3 parallel coordinates generator with statistical coloring
@@ -10,14 +13,13 @@
  * @return {parallelCoordinatesChart}
  */
 module.exports = function parallelCoordinates(parent) {
-  const _y = {};
   const _dragging = {};
-  const _line = d3.svg.line();
-  const _axis = d3.svg.axis().orient('left');
-  const _color = d3.scale.linear()
-      .domain([-2, -0.5, 0.5, 2])
-      .range(['#f46d43', '#74add1', '#74add1', '#66bd63'])
-      .interpolate(d3.interpolateLab);
+  const _line = d3.line();
+  const _axis = d3.axisLeft();
+  let _y = {};
+  let _yAccessors = {};
+  let _color = d3.schemeCategory10;
+  let _colorAccessor = () => 0;
   let _width;
   let _height;
   let _margin;
@@ -27,7 +29,7 @@ module.exports = function parallelCoordinates(parent) {
   let _foreground;
   let _dimensions;
   let _data;
-  let _lineData;
+  let _onClick = () => {};
 
   /**
    * Get the x axis position for some dimension and initialize dragging
@@ -36,8 +38,7 @@ module.exports = function parallelCoordinates(parent) {
    * @return {float} - The distance to the right of the origin
    */
   function position(d) {
-    const v = _dragging[d];
-    return v ? v : _x(d);
+    return _dragging[d] || _x(d);
   }
 
   /**
@@ -47,74 +48,13 @@ module.exports = function parallelCoordinates(parent) {
    * @return {string} - SVG path text
    */
   function path(d) {
-    return _line(_dimensions.map(p => [position(p), _y[p](d[p])]));
+    return _line(_dimensions.map(dim =>
+      [position(dim), _y[dim](_yAccessors[dim](d))]
+    ));
   }
 
   /**
-   * Map a list of objects where each object is an attribute with line values to
-   *     a list of objects where each object is a line with its attributes listed
-   * @private
-   * @param {list} data - A list of objects
-   *      eg {
-   *        name: Area,
-   *        data: [14234, 34132],
-   *        scale : d3.scale.linear()
-   *      }
-   *
-   * @return {list} - A list of line objects
-   *      eg {
-   *        Area: 14234
-   *        Bird species: 67
-   *        Distance to Mainland: 14165.85749
-   *        Land within 500m: 2.60546
-   *      }
-   */
-  function dataToLines(data) {
-    const result = [];
-    data[0].data.forEach((d, i) => result[i] = {});
-    data.forEach(function forEachDim(dim) {
-      result.forEach(function addDimData(line, i) {
-        result[i][dim.name] = dim.data[i];
-      });
-    });
-    return result;
-  }
-
-  /**
-   * color by zScore
-   * @private
-   * @param {list} col - A list of values to generate a z-score function from
-   * @return {object} - Function that returns z-score relative to values in col
-   */
-  function zScore(col) {
-    const mean = d3.mean(col);
-    const sigma = d3.deviation(col);
-    // Return zScore if std_dev is not 0, else 0
-    return d => (sigma ? (d - mean) / sigma : 0);
-  }
-
-  /**
-   * Change foreground line color
-   * @private
-   * @param {string} dimension - The name of the dimension to change
-   * @returns {void}
-   */
-  function changeColor(dimension) {
-    _svg.selectAll('.dimension')
-        .style('font-weight', 'normal')
-        .classed('z-scored', false)
-      .filter(d => d === dimension)
-        .style('font-weight', 'bold')
-        .classed('z-scored', true);
-    const z = zScore(_lineData.map(i => parseFloat(i[dimension])));
-
-    // lines
-    _svg.select('.foreground').selectAll('path')
-        .style('stroke', d => _color(z(d[dimension])));
-  }
-
-  /**
-   * Provide a consisten transition length
+   * Provide a consistent transition length
    * @private
    * @param {object} g - An d3 selection that can be transitioned
    * @return {object} - A d3 transition object
@@ -124,27 +64,25 @@ module.exports = function parallelCoordinates(parent) {
   }
 
   /**
-   * A brushstart callback control
-   * @private
-   * @returns {void}
-   */
-  function brushstart() {
-    d3.event.sourceEvent.stopPropagation();
-  }
-
-  /**
    * Handles a brush event, toggling the display of foreground lines.
    * @private
    * @returns {void}
    */
   function brush() {
-    const actives = _dimensions.filter(p => !_y[p].brush.empty());
-    const extents = actives.map(p => _y[p].brush.extent());
-    _foreground.style('display', function toggleDisplay(d) {
-      return actives.every(function brushed(p, i) {
-        const x = Math.round(d[p] * 100) / 100;
-        return Math.round(extents[i][0] * 100) / 100 <= x &&
-                x <= Math.round(extents[i][1] * 100) / 100;
+    // Get dimensions in original sort order
+    const dims = _svg.selectAll('.dimension');
+
+    // Get all axes brush extents
+    const extents = dims.select('.brush').nodes()
+        .map(d => d3.brushSelection(d));
+
+    _foreground.style('display', (d) => {
+      return dims.data().every((dim, i) => {
+        const lineVal = _y[dim](_yAccessors[dim](d));
+        const dimExtent = extents[i];
+
+        // show line if axis not brushed or line value falls within brush extent
+        return !dimExtent || (lineVal > dimExtent[0] && lineVal < dimExtent[1]);
       }) ? null : 'none';
     });
   }
@@ -156,29 +94,31 @@ module.exports = function parallelCoordinates(parent) {
    */
   function _chart() {
     _svg = d3.select(parent).append('svg')
+        .attr('class', 'parallel-coordinates')
         .attr('width', _width + _margin.left + _margin.right)
         .attr('height', _height + _margin.top + _margin.bottom)
       .append('g')
-        .attr('transform', 'translate(' + _margin.left + ',' + _margin.top + ')');
+        .attr('transform', `translate(${_margin.left}, ${_margin.top})`);
 
     // Create a scale for each dimension
-    _data.forEach(function initScale(d) {
-      _y[d.name] = (d.scale || d3.scale.linear())
-          .domain(d3.extent(d.data))
+    Object.keys(_yAccessors).forEach((k) => {
+      _y[k] = (_y[k] || d3.scaleLinear())
+          .domain(d3.extent(_data.map(d => _yAccessors[k](d))))
           .range([_height, 0]);
     });
 
     // Extract the list of _dimensions
-    _dimensions = _data.map(d => d.name);
-    _x = d3.scale.ordinal()
+    _dimensions = Object.keys(_yAccessors);
+    _x = d3.scaleBand()
         .domain(_dimensions)
-        .rangePoints([0, _width], 1);
+        .range([0, _width])
+        .padding(1);
 
     // Add grey background lines for context.
     _background = _svg.append('g')
         .attr('class', 'background')
       .selectAll('path')
-        .data(_lineData)
+        .data(_data)
       .enter().append('path')
         .attr('d', path);
 
@@ -186,48 +126,48 @@ module.exports = function parallelCoordinates(parent) {
     _foreground = _svg.append('g')
         .attr('class', 'foreground')
       .selectAll('path')
-        .data(_lineData)
+        .data(_data)
       .enter().append('path')
-        .attr('d', path);
+        .attr('d', path)
+        .style('stroke', d => _color(_colorAccessor(d)));
 
     // Add a group element for each dimension.
     const g = _svg.selectAll('.dimension')
         .data(_dimensions)
       .enter().append('g')
         .attr('class', 'dimension')
-        .attr('transform', d => 'translate(' + _x(d) + ')')
-        .call(d3.behavior.drag()
-          .origin(d => ({ x: _x(d) }))
-          .on('dragstart', function onDragStart(d) {
-            _dragging[d] = _x(d);
-            _background.attr('visibility', 'hidden');
-          })
-          .on('drag', function onDrag(d) {
-            _dragging[d] = Math.min(_width, Math.max(0, d3.event.x));
-            _foreground.attr('d', path);
-            _dimensions.sort((a, b) => position(a) - position(b));
-            _x.domain(_dimensions);
-            g.attr('transform', b => 'translate(' + position(b) + ')');
-          })
-          .on('dragend', function onDragEnd(d) {
-            delete _dragging[d];
-            transition(d3.select(this)).attr('transform',
-                                             'translate(' + _x(d) + ')');
-            transition(_foreground).attr('d', path);
-            _background
-                .attr('d', path)
-              .transition()
-                .delay(500)
-                .duration(0)
-                .attr('visibility', null);
-          }));
+        .attr('transform', d => `translate(${_x(d)})`)
+         .call(d3.drag()
+           .on('start', (d) => {
+             _onClick(d);
+             _dragging[d] = _x(d);
+             _background.attr('visibility', 'hidden');
+           })
+           .on('drag', (d) => {
+             _dragging[d] = Math.min(_width, Math.max(0, d3.event.x));
+             _foreground.attr('d', path);
+             _dimensions.sort((a, b) => position(a) - position(b));
+             _x.domain(_dimensions);
+             g.attr('transform', b => `translate(${position(b)})`);
+           })
+           .on('end', function onDragEnd(d) {
+             delete _dragging[d];
+             transition(d3.select(this)).attr('transform', `translate(${_x(d)})`);
+             transition(_foreground).attr('d', path);
+             _background
+                 .attr('d', path)
+               .transition()
+                 .delay(500)
+                 .duration(0)
+                 .attr('visibility', null);
+           }));
 
     // Add an axis and title.
     g.append('g')
         .attr('class', 'axis')
         .each(function callAxis(d) { d3.select(this).call(_axis.scale(_y[d])); })
-        .on('click', changeColor)
-      .append('text')
+        .on('click', _onClick);
+    g.append('text')
         .style('text-anchor', 'middle')
         .attr('y', -9)
         .text(d => d);
@@ -235,20 +175,7 @@ module.exports = function parallelCoordinates(parent) {
     // Add and store a brush for each axis.
     g.append('g')
         .attr('class', 'brush')
-        .each(function storeBrush(d) {
-          d3.select(this).call(
-            _y[d].brush = d3.svg.brush()
-                .y(_y[d])
-                .on('brushstart', brushstart)
-                .on('brush', brush)
-          );
-        })
-      .selectAll('rect')
-        .attr('x', -8)
-        .attr('width', 16);
-
-    // Color _dimensions by z-score
-    changeColor(_dimensions[0]);
+        .call(d3.brushY().on('brush end', brush));
   }
 
   /**
@@ -280,13 +207,13 @@ module.exports = function parallelCoordinates(parent) {
         .remove();
 
     // Adjust axes domains
-    _data.forEach(function adjustAxisDomain(d) {
-      const extent = d3.extent(d.data);
+    Object.keys(_yAccessors).forEach((k) => {
+      const extent = d3.extent(_data.map(d => d[k]));
       if (extent[0] === extent[1]) {
         extent[0] -= extent[0] / 2;
         extent[1] += extent[1] / 2;
       }
-      _y[d.name].domain(extent);
+      _y[k].domain(extent);
     });
 
     // Transition axes
@@ -298,10 +225,10 @@ module.exports = function parallelCoordinates(parent) {
     // Rebind data
     _background = _svg.select('.background')
         .selectAll('path')
-        .data(_lineData);
+        .data(_data);
     _foreground = _svg.select('.foreground')
         .selectAll('path')
-        .data(_lineData);
+        .data(_data);
     // Update
     _background
         .style('opacity', 0)
@@ -317,9 +244,6 @@ module.exports = function parallelCoordinates(parent) {
     _foreground.enter().append('path')
         .style('opacity', 0)
         .attr('d', path);
-
-    // Update color
-    changeColor(d3.select('.z-scored').data()[0]);
 
     // Fade in lines
     transition(_background).delay(1000)
@@ -379,7 +303,71 @@ module.exports = function parallelCoordinates(parent) {
   _chart.data = function data(val) {
     if (!arguments.length) { return _data; }
     _data = val;
-    _lineData = dataToLines(_data);
+    return _chart;
+  };
+
+  /**
+   * @name y
+   * @instance
+   * @param {object} y
+   * @return {object}
+   * @return {scatterplot}
+   */
+  _chart.y = function y(val) {
+    if (!arguments.length) { return _y; }
+    _y = val;
+    return _chart;
+  };
+
+  /**
+   * @name yAccessors
+   * @instance
+   * @param {object} yAccessors
+   * @return {object}
+   * @return {scatterplot}
+   */
+  _chart.yAccessors = function yAccessors(val) {
+    if (!arguments.length) { return _yAccessors; }
+    _yAccessors = val;
+    return _chart;
+  };
+
+  /**
+   * @name color
+   * @instance
+   * @param {object} color
+   * @return {object}
+   * @return {scatterplot}
+   */
+  _chart.color = function color(val) {
+    if (!arguments.length) { return _color; }
+    _color = val;
+    return _chart;
+  };
+
+  /**
+   * @name colorAccessor
+   * @instance
+   * @param {object} colorAccessor
+   * @return {object}
+   * @return {scatterplot}
+   */
+  _chart.colorAccessor = function colorAccessor(val) {
+    if (!arguments.length) { return _colorAccessor; }
+    _colorAccessor = val;
+    return _chart;
+  };
+
+  /**
+   * @name onClick
+   * @instance
+   * @param {object} onClick
+   * @return {object}
+   * @return {scatterplot}
+   */
+  _chart.onClick = function onClick(val) {
+    if (!arguments.length) { return _onClick; }
+    _onClick = val;
     return _chart;
   };
 

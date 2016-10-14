@@ -1,5 +1,5 @@
+import parallelCoordinates from './src/js/para_coords';
 import scatterplot from './src/js/scatterplot';
-// import parallelCoordinates from './src/js/parallel_coordinates';
 import verticalLine from './src/js/vertical_line';
 
 /**
@@ -7,7 +7,7 @@ import verticalLine from './src/js/vertical_line';
  * @module hakaiCharts
  */
 module.exports = {
-  // parallelCoordinates,
+  parallelCoordinates,
   scatterplot,
   verticalLine,
 };

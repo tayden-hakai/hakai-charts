@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers js:babel-register --require ignore-styles src/**/*.spec.js",
+    "test:watch": "npm test -- --watch",
     "preversion": "webpack --config webpack.prod.config.js --progress -p",
     "build": "webpack --config webpack.prod.config.js --progress -p",
-    "build:dev": "webpack --config webpack.dev.config.js --progress -p",
+    "start": "webpack-dev-server --config webpack.dev.config.js --content-base examples --inline",
+    "build:dev": "webpack --config webpack.dev.config.js --progress",
     "doc": "./node_modules/.bin/jsdoc2md src/js/*.js > README.md"
   },
   "repository": {
@@ -28,7 +30,7 @@
     "eslint-config-airbnb": "^11.1.0",
     "eslint-plugin-import": "^1.15.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
-    "eslint-plugin-react": "^6.2.1",
+    "eslint-plugin-react": "^6.2.2",
     "ignore-styles": "^5.0.1",
     "jsdoc-to-markdown": "^1.3.7",
     "mocha": "^3.0.2",
